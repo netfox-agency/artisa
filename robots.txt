@@ -1,0 +1,15 @@
+# Maison Artisa — cosmétique frais fabriqué à la commande
+User-agent: *
+Allow: /
+
+# Crawlers AI / LLM : autorisés (bonne pratique 2026)
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://artisacosmetique.com/sitemap.xml

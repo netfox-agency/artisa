@@ -3,8 +3,27 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Maison Artisa</title>
-<meta name="description" content="Soins préparés sur commande, pour que les actifs arrivent vivants.">
+
+<!-- SEO primary (default, overridden dynamically by JS based on product) -->
+<title>Soin cosmétique frais fabriqué à la commande — Maison Artisa</title>
+<meta name="description" content="Cosmétique frais fabriqué après votre commande. Actifs vivants, plus d'efficacité. Maison Artisa — 827 avis, 4,9/5.">
+<meta name="keywords" content="cosmétique frais, soin fabriqué à la commande, cosmétique fabriqué après commande, skincare naturel, cosmétique artisanal français">
+<link rel="canonical" href="https://artisacosmetique.com/product.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="language" content="fr">
+
+<!-- Open Graph -->
+<meta property="og:type" content="product">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Maison Artisa">
+<meta property="og:title" content="Soin cosmétique frais — Maison Artisa">
+<meta property="og:description" content="Soin cosmétique frais fabriqué après votre commande. Actifs vivants, efficacité visible.">
+<meta property="og:url" content="https://artisacosmetique.com/product.html">
+<meta property="og:image" content="https://artisacosmetique.com/hero-face.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;450;500;600&display=swap" rel="stylesheet">
@@ -1226,7 +1245,81 @@
     const ref = data?.ref || 'Soin';
     const subtitle = data?.subtitle || '';
 
-    document.title = `${displayName} · Maison Artisa`;
+    // SEO: title + meta description + canonical dynamiques
+    document.title = `${displayName} · Soin cosmétique frais fabriqué à la commande — Maison Artisa`;
+    const seoDesc = `${displayName} · ${subtitle}. Soin cosmétique frais fabriqué après votre commande. Maison Artisa, 4,9/5 sur 827 avis.`;
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', seoDesc);
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', `${displayName} — Cosmétique frais Maison Artisa`);
+    let ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', seoDesc);
+    const handle = getParam('h') || '';
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', `https://artisacosmetique.com/product.html?h=${encodeURIComponent(handle)}`);
+    let ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', `https://artisacosmetique.com/product.html?h=${encodeURIComponent(handle)}`);
+    if (p.featuredImage?.url) {
+      let ogImg = document.querySelector('meta[property="og:image"]');
+      if (ogImg) ogImg.setAttribute('content', p.featuredImage.url);
+      let twImg = document.querySelector('meta[name="twitter:image"]');
+      if (twImg) twImg.setAttribute('content', p.featuredImage.url);
+    }
+
+    // Structured data : Product schema + BreadcrumbList
+    const priceNum = variant ? parseFloat(variant.price.amount) : 0;
+    const currency = variant?.price.currencyCode || 'EUR';
+    const available = variant?.availableForSale;
+    const imgUrl = p.featuredImage?.url || '';
+    const productJsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Product",
+          "name": displayName,
+          "description": data?.story || subtitle || p.title,
+          "image": imgUrl,
+          "brand": { "@type": "Brand", "name": "Maison Artisa" },
+          "category": "Cosmétique",
+          "offers": {
+            "@type": "Offer",
+            "url": `https://artisacosmetique.com/product.html?h=${encodeURIComponent(handle)}`,
+            "priceCurrency": currency,
+            "price": priceNum.toFixed(2),
+            "availability": available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+            "itemCondition": "https://schema.org/NewCondition",
+            "shippingDetails": {
+              "@type": "OfferShippingDetails",
+              "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "EUR" },
+              "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "FR" }
+            }
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "827",
+            "bestRating": "5",
+            "worstRating": "1"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Maison Artisa", "item": "https://artisacosmetique.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Les soins", "item": "https://artisacosmetique.com/#products" },
+            { "@type": "ListItem", "position": 3, "name": displayName }
+          ]
+        }
+      ]
+    };
+    let oldScript = document.getElementById('product-jsonld');
+    if (oldScript) oldScript.remove();
+    const jsonLdEl = document.createElement('script');
+    jsonLdEl.type = 'application/ld+json';
+    jsonLdEl.id = 'product-jsonld';
+    jsonLdEl.textContent = JSON.stringify(productJsonLd);
+    document.head.appendChild(jsonLdEl);
+
     document.getElementById('info-ref').textContent = ref;
     document.getElementById('info-title').textContent = displayName;
     document.getElementById('breadcrumb-current').textContent = displayName;
