@@ -80,6 +80,96 @@
 }
 </script>
 
+<!-- Structured Data : FAQPage (rich snippets Google) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce qu'un cosmétique frais fabriqué à la commande ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un cosmétique frais est un soin préparé dans notre atelier après votre commande, pas stocké à l'avance en entrepôt. Chez Maison Artisa, chaque flacon est fabriqué à la demande dans les 48 heures suivant la réception de votre commande. Les actifs n'ont pas le temps de s'oxyder, ils arrivent vivants sur votre peau avec un maximum d'efficacité."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi le cosmétique fabriqué à la commande est-il plus efficace ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un cosmétique classique passe 6 à 18 mois entre la production et votre salle de bain. Pendant ce temps, les actifs comme la niacinamide, la vitamine C, les peptides ou les acides de fruits s'oxydent et perdent jusqu'à 50% de leur puissance. Nos soins sont préparés juste avant l'expédition : vous bénéficiez de 100% de l'efficacité des actifs, pas d'une version dégradée."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps entre ma commande et la réception ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nous préparons votre soin dans les 48 heures qui suivent votre commande. La livraison en France métropolitaine est offerte et assurée en 3 à 5 jours ouvrés via transporteur suivi. Délai total : environ une semaine entre commande et réception, avec un produit préparé spécialement pour vous et daté."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de temps se conserve le soin après réception ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nos soins se conservent 6 mois après ouverture (indication PAO 6M sur chaque flacon). Contrairement à un cosmétique acheté en magasin qui a déjà vieilli plusieurs mois en stock, vous profitez de toute la durée de vie utile du produit, sans compromis sur l'efficacité."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Vos soins sont-ils naturels et cruelty-free ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Nos formules sont composées d'ingrédients naturels et biotechnologiques, sans parabènes, sans silicones, sans colorants synthétiques. Tous nos produits sont cruelty-free : aucun test animal, ni sur les produits finis, ni sur les matières premières. Nous travaillons exclusivement avec des fournisseurs certifiés."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pour quel type de peau sont vos soins ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chaque soin est formulé pour un besoin précis. La Base (niacinamide) convient à tous les types de peau pour l'hydratation quotidienne. La Correction cible les imperfections. Le Peeling (AHA) est dédié aux taches et à l'éclat. Le Regard et Le Réveil traitent le contour des yeux. La Pureté pour le nettoyage, Le Grain pour l'exfoliation. Chaque fiche produit détaille les actifs et les types de peau adaptés."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on utiliser vos soins pendant la grossesse ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La Base, Le Réveil, Le Regard et La Pureté sont compatibles avec la grossesse. La Correction (acide salicylique) et Le Peeling (AHA) sont déconseillés pendant la grossesse et l'allaitement. En cas de doute, consultez votre médecin ou votre sage-femme avant toute utilisation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que faire si le soin ne me convient pas ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Notre service client vous propose un échange ou un remboursement sous 14 jours après réception si le soin ne vous convient pas. Contactez-nous via le formulaire en ligne, nous gérons tout rapidement et sans questions compliquées."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Où sont fabriqués vos cosmétiques ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tous nos cosmétiques sont fabriqués en France, dans notre atelier. Nous ne stockons aucun produit fini : chaque flacon est préparé à la demande après réception de votre commande. Chaque flacon porte sa date de fabrication."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Livrez-vous à l'international ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pour le moment, nous livrons uniquement en France métropolitaine, avec livraison offerte. L'ouverture à la Belgique, la Suisse et le reste de l'Europe est prévue courant 2026."
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;450;500;600;700&display=swap" rel="stylesheet">
@@ -1809,6 +1899,109 @@
   }
 
   /* ==========================================================
+     FAQ SECTION — SEO rich snippets (FAQPage schema) + <details>
+     ========================================================== */
+  .faq-section {
+    padding: 104px 40px;
+    background: var(--bg-soft);
+    border-top: 1px solid var(--line-soft);
+  }
+  .faq-inner {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .faq-section .eyebrow {
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+  .faq-section .section-title {
+    margin-bottom: 48px;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq-item summary {
+    padding: 26px 0;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    color: var(--ink);
+    transition: color 0.2s;
+    font-family: inherit;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::marker { content: ''; }
+  .faq-item summary::after {
+    content: '+';
+    font-size: 26px;
+    line-height: 1;
+    font-weight: 300;
+    color: var(--muted);
+    transition: transform 0.3s cubic-bezier(.2,.8,.2,1), color 0.2s;
+    flex-shrink: 0;
+    width: 28px;
+    text-align: center;
+    display: inline-block;
+  }
+  .faq-item[open] summary::after {
+    transform: rotate(45deg);
+    color: var(--ink);
+  }
+  .faq-item summary:hover { color: var(--accent); }
+  .faq-item summary:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .faq-item[open] summary { color: var(--ink); }
+  .faq-answer {
+    padding: 4px 0 28px;
+    max-width: 68ch;
+  }
+  .faq-answer p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .faq-answer p + p { margin-top: 14px; }
+  .faq-answer strong {
+    font-weight: 550;
+    color: var(--ink);
+  }
+  /* Smooth open animation */
+  .faq-item[open] .faq-answer {
+    animation: faq-reveal 0.3s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes faq-reveal {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 900px) {
+    .faq-section { padding: 72px 28px; }
+    .faq-section .section-title { margin-bottom: 36px; }
+    .faq-item summary { font-size: 16px; padding: 22px 0; gap: 14px; }
+    .faq-item summary::after { font-size: 22px; width: 24px; }
+  }
+  @media (max-width: 600px) {
+    .faq-section { padding: 56px 20px; }
+    .faq-item summary { font-size: 15px; padding: 20px 0; }
+    .faq-answer p { font-size: 14px; line-height: 1.65; }
+  }
+
+  /* ==========================================================
      HERO V5 — mobile-first stacked, desktop split overlay 65/35
      ========================================================== */
 
@@ -2467,6 +2660,7 @@
       <li><a href="#revolution">La révolution</a></li>
       <li><a href="#process">Process</a></li>
       <li><a href="#reviews">Avis</a></li>
+      <li><a href="#faq">FAQ</a></li>
     </ul>
     <div class="nav-cta">
       <button id="cart-button" class="btn btn-dark" type="button" aria-label="Voir mon panier">
@@ -2776,6 +2970,86 @@
     <div class="reviews-grid" id="reviews-list"></div>
     <div class="reviews-more">
       <a href="reviews.html" class="btn btn-ghost">Voir les 827 avis</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <span class="eyebrow">Questions fréquentes</span>
+    <h2 class="section-title">Tout sur le <em>cosmétique frais</em>.</h2>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary class="faq-question">Qu'est-ce qu'un cosmétique frais fabriqué à la commande ?</summary>
+        <div class="faq-answer">
+          <p>Un cosmétique frais est un soin préparé dans notre atelier après votre commande, pas stocké à l'avance en entrepôt. Chez Maison Artisa, chaque flacon est fabriqué à la demande dans les 48 heures suivant la réception de votre commande. Les actifs n'ont pas le temps de s'oxyder, ils arrivent vivants sur votre peau avec un maximum d'efficacité.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">Pourquoi le cosmétique fabriqué à la commande est-il plus efficace ?</summary>
+        <div class="faq-answer">
+          <p>Un cosmétique classique passe 6 à 18 mois entre la production et votre salle de bain. Pendant ce temps, les actifs comme la niacinamide, la vitamine C, les peptides ou les acides de fruits s'oxydent et perdent jusqu'à 50% de leur puissance. Nos soins sont préparés juste avant l'expédition : vous bénéficiez de 100% de l'efficacité des actifs, pas d'une version dégradée.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">Combien de temps entre ma commande et la réception ?</summary>
+        <div class="faq-answer">
+          <p>Nous préparons votre soin dans les 48 heures qui suivent votre commande. La livraison en France métropolitaine est offerte et assurée en 3 à 5 jours ouvrés via transporteur suivi. Délai total : environ une semaine entre commande et réception, avec un produit préparé spécialement pour vous et daté.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">Combien de temps se conserve le soin après réception ?</summary>
+        <div class="faq-answer">
+          <p>Nos soins se conservent 6 mois après ouverture (indication PAO 6M sur chaque flacon). Contrairement à un cosmétique acheté en magasin qui a déjà vieilli plusieurs mois en stock, vous profitez de toute la durée de vie utile du produit, sans compromis sur l'efficacité.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">Vos soins sont-ils naturels et cruelty-free ?</summary>
+        <div class="faq-answer">
+          <p>Oui. Nos formules sont composées d'ingrédients naturels et biotechnologiques, sans parabènes, sans silicones, sans colorants synthétiques. Tous nos produits sont cruelty-free : aucun test animal, ni sur les produits finis, ni sur les matières premières. Nous travaillons exclusivement avec des fournisseurs certifiés.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">Pour quel type de peau sont vos soins ?</summary>
+        <div class="faq-answer">
+          <p>Chaque soin est formulé pour un besoin précis. <strong>La Base</strong> (niacinamide) convient à tous les types de peau pour l'hydratation quotidienne. <strong>La Correction</strong> cible les imperfections. <strong>Le Peeling</strong> (AHA) est dédié aux taches et à l'éclat. <strong>Le Regard</strong> et <strong>Le Réveil</strong> traitent le contour des yeux. <strong>La Pureté</strong> pour le nettoyage, <strong>Le Grain</strong> pour l'exfoliation. Chaque fiche produit détaille les actifs et les types de peau adaptés.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">Peut-on utiliser vos soins pendant la grossesse ?</summary>
+        <div class="faq-answer">
+          <p>La Base, Le Réveil, Le Regard et La Pureté sont compatibles avec la grossesse. La Correction (acide salicylique) et Le Peeling (AHA) sont déconseillés pendant la grossesse et l'allaitement. En cas de doute, consultez votre médecin ou votre sage-femme avant toute utilisation.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">Que faire si le soin ne me convient pas ?</summary>
+        <div class="faq-answer">
+          <p>Notre service client vous propose un échange ou un remboursement sous 14 jours après réception si le soin ne vous convient pas. Contactez-nous via le formulaire en ligne, nous gérons tout rapidement et sans questions compliquées.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">Où sont fabriqués vos cosmétiques ?</summary>
+        <div class="faq-answer">
+          <p>Tous nos cosmétiques sont fabriqués en France, dans notre atelier. Nous ne stockons aucun produit fini : chaque flacon est préparé à la demande après réception de votre commande. Chaque flacon porte sa date de fabrication.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">Livrez-vous à l'international ?</summary>
+        <div class="faq-answer">
+          <p>Pour le moment, nous livrons uniquement en France métropolitaine, avec livraison offerte. L'ouverture à la Belgique, la Suisse et le reste de l'Europe est prévue courant 2026.</p>
+        </div>
+      </details>
     </div>
   </div>
 </section>
