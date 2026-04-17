@@ -1,0 +1,3107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Maison Artisa — Savoir-faire artisanal. Cosmétique naturel & efficace.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;450;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4efe8;
+    --bg-soft: #faf7f2;
+    --bg-warm: #ece4d6;
+    --ink: #0f0f0f;
+    --ink-soft: #4a4a48;
+    --muted: #6e6a63;
+    --line: #e3ddd3;
+    --accent: #2d3a2e;
+    --accent-soft: #d9e0cf;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  /* A11y focus states */
+  :focus { outline: none; }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  a:focus-visible, button:focus-visible, .btn:focus-visible, .btn-pill:focus-visible {
+    outline-offset: 3px;
+  }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* ---------- ANNOUNCE BAR ---------- */
+  .announce {
+    background: var(--ink);
+    color: var(--bg);
+    text-align: center;
+    font-size: 12px;
+    padding: 10px 20px;
+    font-weight: 450;
+    letter-spacing: 0.02em;
+  }
+  .announce span { margin: 0 12px; opacity: 0.55; }
+
+  /* ---------- NAV ---------- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(244, 239, 232, 0.82);
+    backdrop-filter: saturate(180%) blur(24px);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    border-bottom: 1px solid rgba(227, 221, 211, 0.5);
+  }
+  .nav-inner {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .logo em { font-style: italic; }
+  .logo-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; display: inline-block; margin: 0 4px; }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    font-size: 14px;
+    font-weight: 450;
+  }
+  .nav-links a {
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.72;
+    transition: opacity 0.25s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta { display: flex; gap: 10px; align-items: center; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 26px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(.2,.8,.2,1);
+    cursor: pointer;
+    border: none;
+    white-space: nowrap;
+    font-family: inherit;
+    letter-spacing: 0.01em;
+  }
+  .btn-dark { background: var(--ink); color: var(--bg); }
+  .btn-dark:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(0,0,0,0.18); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid rgba(15,15,15,0.2); }
+  .btn-ghost:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .btn-lg { padding: 16px 30px; font-size: 15px; }
+
+  /* Cart count badge */
+  .cart-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 2px;
+  }
+  .cart-count[hidden] { display: none; }
+
+  /* Toast notification */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 1000;
+    padding: 16px 22px;
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 14px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 380px;
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(.2,.8,.2,1), opacity 0.35s;
+    font-size: 14px;
+  }
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .toast-text { flex: 1; }
+  .toast-text strong { display: block; font-weight: 550; margin-bottom: 2px; }
+  .toast-text span { display: block; font-size: 12px; opacity: 0.7; }
+  .toast-cta {
+    padding: 8px 16px;
+    background: var(--bg);
+    color: var(--ink);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .toast-cta:hover { background: var(--accent-soft); }
+
+  /* Product button loading state */
+  .btn-pill.loading {
+    opacity: 0.6;
+    cursor: wait;
+  }
+  .btn-pill.added {
+    background: #2d8a4e;
+    color: #fff;
+  }
+
+  /* ============================================================
+     CART DRAWER — panel qui slide depuis la droite
+     ============================================================ */
+  .cart-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .cart-drawer[aria-hidden="false"] {
+    pointer-events: auto;
+    visibility: visible;
+  }
+  .cart-drawer-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(.2,.8,.2,1);
+  }
+  .cart-drawer[aria-hidden="false"] .cart-drawer-overlay { opacity: 1; }
+  .cart-drawer-panel {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: min(440px, 100%);
+    background: var(--bg);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: -24px 0 60px rgba(0,0,0,0.18);
+  }
+  .cart-drawer[aria-hidden="false"] .cart-drawer-panel {
+    transform: translateX(0);
+  }
+  .cart-drawer-header {
+    padding: 24px 28px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .cart-drawer-header h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .cart-drawer-close {
+    background: transparent;
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    transition: background 0.2s;
+  }
+  .cart-drawer-close:hover { background: var(--line); }
+  .cart-drawer-close svg { display: block; }
+  .cart-drawer-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 28px;
+  }
+  .cart-drawer-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    gap: 18px;
+    padding: 40px 20px;
+  }
+  .cart-drawer-empty-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+  }
+  .cart-drawer-empty h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .cart-drawer-empty p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 28ch;
+    line-height: 1.5;
+  }
+  .cart-drawer-item {
+    display: grid;
+    grid-template-columns: 84px 1fr auto;
+    gap: 14px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .cart-drawer-item:last-child { border-bottom: none; }
+  .cart-drawer-item-img {
+    width: 84px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: var(--bg-soft);
+  }
+  .cart-drawer-item-info h4 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin: 0 0 6px;
+  }
+  .cart-drawer-item-info .qty {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .cart-drawer-item-info .remove {
+    font-size: 11px;
+    color: var(--muted);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .cart-drawer-item-info .remove:hover { color: var(--ink); }
+  .cart-drawer-item-price {
+    font-size: 15px;
+    font-weight: 550;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .cart-drawer-footer {
+    padding: 20px 28px 24px;
+    border-top: 1px solid var(--line);
+    background: var(--bg-soft);
+  }
+  .cart-drawer-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .cart-drawer-total-amount {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .cart-drawer-checkout {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .cart-drawer-secure {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  @media (max-width: 480px) {
+    .cart-drawer-panel { width: 100%; }
+    .cart-drawer-header { padding: 20px 20px 16px; }
+    .cart-drawer-header h2 { font-size: 26px; }
+    .cart-drawer-items { padding: 8px 20px; }
+    .cart-drawer-footer { padding: 18px 20px 20px; }
+  }
+
+  /* ============================================================
+     HERO V4 — IMMERSIVE STAGE
+     Une seule image, typo overlay bas, CTA discret.
+     Inspiration: Neural infrastructure style.
+     ============================================================ */
+  .hero {
+    padding: 24px 28px 64px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .hero-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9.2;
+    min-height: 560px;
+    max-height: 780px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #0e2a34;
+    animation: fadeInUp 1.1s cubic-bezier(.2,.8,.2,1) both;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04);
+    display: grid;
+    grid-template-columns: 1.9fr 1fr;
+  }
+
+  /* === FACE ZONE (65%) === */
+  .hero-face {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-face img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+    animation: kenburns 24s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    0%   { transform: scale(1.00); }
+    100% { transform: scale(1.06); }
+  }
+  .hero-face::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.22) 82%, rgba(0,0,0,0.45) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* === PRODUCT ZONE (35%) === */
+  .hero-product {
+    position: relative;
+    overflow: hidden;
+    background: #0e2a34;
+  }
+  .hero-product img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 82% center;
+    animation: none;
+  }
+  .hero-product::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.28) 82%, rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Subtle vertical separator between zones */
+  .hero-stage::before {
+    content: "";
+    position: absolute;
+    left: calc(100% * 1.9 / 2.9);
+    top: 6%;
+    bottom: 6%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.14) 30%, rgba(255,255,255,0.14) 70%, transparent);
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  /* Floating rating top-left */
+  .hero-rating {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 18px 9px 14px;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+    animation: fadeInUp 1.1s 0.35s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .hero-rating .pulse {
+    width: 7px; height: 7px; background: #2d8a4e; border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(45,138,78,0.6);
+    animation: pulse 2.2s ease-out infinite;
+  }
+  .hero-rating .stars { color: var(--accent); letter-spacing: 1px; font-size: 12px; }
+  .hero-rating strong { font-weight: 600; }
+  .hero-rating .sep { color: var(--muted); }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(45,138,78,0.55); }
+    70%  { box-shadow: 0 0 0 10px rgba(45,138,78,0); }
+    100% { box-shadow: 0 0 0 0 rgba(45,138,78,0); }
+  }
+
+  /* Floating date stamp — compact pill top-right de la zone produit */
+  .hero-stamp {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 3;
+    padding: 8px 14px 8px 10px;
+    background: rgba(250,247,242,0.9);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+    animation: fadeInUp 1.1s 0.5s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .hero-stamp .icon {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--ink); color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .hero-stamp .icon svg { width: 12px; height: 12px; }
+  .hero-stamp .eyebrow-sm { display: none; }
+  .hero-stamp .date-main {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: 1;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .hero-stamp .date-main::before {
+    content: "Fabriqué ";
+    color: var(--muted);
+    font-weight: 450;
+  }
+
+  /* Content stack at bottom of stage */
+  .hero-content {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 2;
+    padding: 40px 44px 36px;
+    color: #fff;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255,255,255,0.78);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 20px;
+    animation: fadeInUp 1.1s 0.2s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 24px; height: 1px;
+    background: rgba(255,255,255,0.45);
+  }
+
+  h1.hero-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(38px, 4.6vw, 76px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    color: #fff;
+    max-width: 17ch;
+    margin: 0 0 20px;
+    text-wrap: balance;
+    animation: fadeInUp 1.1s 0.15s cubic-bezier(.2,.8,.2,1) both;
+  }
+  h1.hero-title .italic { font-style: italic; }
+
+  .hero-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+    margin-top: 0;
+    animation: fadeInUp 1.1s 0.3s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .hero-sub {
+    color: rgba(255,255,255,0.92);
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 460px;
+    margin: 0;
+  }
+  .hero-sub strong { color: #fff; font-weight: 500; }
+
+  .hero-ctas {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+  .hero-ctas .btn-light {
+    background: rgba(250,247,242,0.98);
+    color: var(--ink);
+    backdrop-filter: blur(14px);
+  }
+  .hero-ctas .btn-light:hover {
+    background: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+  }
+  .hero-ctas .btn-link {
+    color: rgba(255,255,255,0.88);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+    transition: all 0.2s;
+  }
+  .hero-ctas .btn-link:hover { color: #fff; border-color: #fff; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* --- Product info block (bottom of product zone) --- */
+  .hero-product-info {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 2;
+    padding: 32px 28px 28px;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
+    animation: fadeInUp 1.1s 0.45s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .hero-product-info:hover { transform: translateY(-3px); }
+  .hero-product-info:hover .hpi-arrow { transform: translateX(4px); }
+
+  .hpi-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.72);
+    font-weight: 500;
+    margin-bottom: -4px;
+  }
+  .hpi-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(20px, 1.9vw, 26px);
+    color: #fff;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    font-weight: 400;
+    max-width: 12ch;
+    text-wrap: balance;
+  }
+  .hpi-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .hpi-price {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.92);
+    letter-spacing: 0;
+  }
+  .hpi-price small { color: rgba(255,255,255,0.6); font-size: 12px; margin-left: 2px; font-weight: 400; }
+  .hpi-arrow {
+    font-size: 17px;
+    color: rgba(255,255,255,0.85);
+    transition: transform 0.3s cubic-bezier(.2,.8,.2,1);
+  }
+
+  /* ---------- MARQUEE ---------- */
+  .marquee {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 22px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 80px;
+  }
+  .marquee-track {
+    display: inline-flex;
+    gap: 64px;
+    animation: scroll 38s linear infinite;
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    font-style: italic;
+  }
+  .marquee-track span { display: inline-flex; align-items: center; gap: 64px; }
+  .marquee-track span::after { content: "✦"; color: var(--accent-soft); font-style: normal; }
+  @keyframes scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 140px 40px; }
+  .section-inner { max-width: 1440px; margin: 0 auto; }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+  }
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(44px, 5.4vw, 84px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    text-align: center;
+    margin-bottom: 72px;
+    font-weight: 400;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  /* ---------- PRODUCTS (photo edge-to-edge, clean card) ---------- */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px 24px;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  .product {
+    background: transparent;
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1);
+    position: relative;
+  }
+  .product:hover { transform: translateY(-4px); }
+  .product-img {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+    background: #f4f0e9;
+  }
+  .product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
+  }
+  .product:hover .product-img img { transform: scale(1.03); }
+  .product-chip {
+    position: absolute;
+    top: 14px; left: 14px;
+    background: rgba(15,15,15,0.92);
+    color: #fff;
+    backdrop-filter: blur(10px);
+    padding: 7px 13px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+  }
+  .product-chip .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #7dc398;
+    box-shadow: 0 0 0 0 rgba(125,195,152,0.7);
+    animation: pulse 2.4s ease-out infinite;
+  }
+  .product-body { padding: 18px 4px 4px; }
+  .product-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+    letter-spacing: -0.015em;
+    margin-bottom: 4px;
+    line-height: 1.15;
+  }
+  .product-desc { font-size: 12px; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
+  .product-foot { display: flex; align-items: center; justify-content: space-between; }
+  .product-price { font-size: 15px; font-weight: 550; letter-spacing: -0.01em; }
+  .product-price small { color: var(--muted); font-weight: 400; font-size: 12px; margin-left: 2px; }
+  .btn-pill {
+    padding: 11px 18px;
+    font-size: 13px;
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    font-weight: 500;
+    min-height: 40px;
+  }
+  .btn-pill:hover { background: var(--accent); }
+
+  /* ---------- REVOLUTION ---------- */
+  .revolution { background: var(--ink); color: var(--bg); }
+  .revolution .section-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .revolution-visual {
+    aspect-ratio: 4/5;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #333;
+    position: relative;
+  }
+  .revolution-visual img { width: 100%; height: 100%; object-fit: cover; }
+  .revolution-visual .floating-stat {
+    position: absolute;
+    bottom: 28px; left: 28px; right: 28px;
+    padding: 22px 26px;
+    background: rgba(244,239,232,0.97);
+    color: var(--ink);
+    border-radius: 16px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.22);
+  }
+  .floating-stat-val {
+    font-family: 'Instrument Serif', serif;
+    font-size: 56px;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+  }
+  .floating-stat-val .em { font-style: italic; color: #b93030; }
+  .floating-stat-label { font-size: 13px; color: var(--ink-soft); margin-top: 6px; max-width: 260px; }
+
+  .revolution h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(44px, 5vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    margin-bottom: 32px;
+  }
+  .revolution h2 em { font-style: italic; color: var(--accent-soft); }
+  .revolution-lead {
+    font-size: 16px;
+    line-height: 1.65;
+    color: #cec9c0;
+    margin-bottom: 40px;
+    max-width: 520px;
+  }
+  .revolution .eyebrow { text-align: left; color: var(--accent-soft); margin-bottom: 18px; }
+
+  /* Contraste Ailleurs / Artisa */
+  .revolution-compare {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: stretch;
+    padding: 28px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 40px;
+  }
+  .compare-col {
+    padding: 8px 4px;
+  }
+  .compare-label {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8a8680;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .compare-artisa .compare-label {
+    color: var(--accent-soft);
+  }
+  .compare-stat {
+    font-family: 'Instrument Serif', serif;
+    font-size: 56px;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    color: #a6a19a;
+    margin-bottom: 8px;
+  }
+  .compare-artisa .compare-stat {
+    color: var(--bg);
+    font-style: italic;
+  }
+  .compare-desc {
+    font-size: 13px;
+    color: #a6a19a;
+    line-height: 1.45;
+  }
+  .compare-divider {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.2), transparent);
+  }
+
+  .revolution-outcome {
+    margin-top: 0;
+    padding: 24px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .outcome-mark {
+    font-family: 'Instrument Serif', serif;
+    font-size: 52px;
+    line-height: 1;
+    color: var(--accent-soft);
+    font-style: italic;
+  }
+  .outcome-text { font-family: 'Instrument Serif', serif; font-size: 26px; line-height: 1.15; letter-spacing: -0.01em; }
+
+  /* ---------- POMPE ---------- */
+  .pompe { background: var(--bg-soft); }
+  .pompe .section-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .pompe-text h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(40px, 4.5vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    margin-bottom: 24px;
+  }
+  .pompe-text h2 em { font-style: italic; color: var(--accent); }
+  .pompe-text p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+  }
+  .pompe-list { margin-top: 32px; display: flex; flex-direction: column; gap: 14px; }
+  .pompe-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--white);
+    border-radius: 12px;
+  }
+  .pompe-item svg { color: var(--accent); flex-shrink: 0; }
+  .pompe-item strong { font-weight: 550; font-size: 15px; }
+  .pompe-item span { font-size: 13px; color: var(--muted); display: block; margin-top: 2px; }
+  .pompe-visual {
+    aspect-ratio: 4/5;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--accent-soft);
+  }
+  .pompe-visual img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ---------- PROCESS ---------- */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .step-card { text-align: left; }
+  .step-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 68px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 22px;
+    font-style: italic;
+  }
+  .step-card h3 {
+    font-size: 20px;
+    font-weight: 550;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .step-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+
+  /* ---------- REVIEWS ---------- */
+  .reviews { background: var(--bg-warm); }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .review {
+    background: var(--bg-soft);
+    border-radius: 20px;
+    padding: 32px;
+  }
+  .review-stars { color: var(--accent); margin-bottom: 14px; letter-spacing: 2px; }
+  .review-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+  .review-author { display: flex; align-items: center; gap: 12px; }
+  .review-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--accent-soft);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 14px;
+  }
+  .review-name { font-size: 14px; font-weight: 550; }
+  .review-meta { font-size: 12px; color: var(--muted); }
+
+  /* ---------- CTA FINAL ---------- */
+  .cta-final {
+    text-align: center;
+    padding: 160px 32px 180px;
+    background: var(--bg);
+  }
+  .cta-final h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(58px, 7.8vw, 140px);
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+    font-weight: 400;
+    max-width: 1200px;
+    margin: 0 auto 48px;
+  }
+  .cta-final h2 em { font-style: italic; color: var(--accent); }
+
+  /* ---------- TRUST STRIP ---------- */
+  .trust-strip {
+    background: var(--bg-warm);
+    padding: 72px 40px 80px;
+  }
+  .trust-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .trust-badges {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .trust-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px 22px;
+    background: var(--bg-soft);
+    border-radius: 16px;
+  }
+  .trust-item svg { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+  .trust-item strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 550;
+    margin-bottom: 2px;
+    letter-spacing: -0.005em;
+  }
+  .trust-item span {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .trust-payments {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(15,15,15,0.08);
+    flex-wrap: wrap;
+  }
+  .trust-payments-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .trust-payments-logos {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pay-badge {
+    padding: 8px 14px;
+    background: var(--bg-soft);
+    border: 1px solid rgba(15,15,15,0.08);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: 0.01em;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 96px 40px 40px;
+  }
+  .footer-inner { max-width: 1440px; margin: 0 auto; }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-brand h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 44px;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+    font-weight: 400;
+  }
+  .footer-brand h3 em { font-style: italic; }
+  .footer-brand p { color: #a6a19a; max-width: 380px; font-size: 14px; line-height: 1.6; }
+  .footer-col h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 22px;
+    color: #a6a19a;
+    font-weight: 500;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a { color: var(--bg); text-decoration: none; font-size: 14px; opacity: 0.85; transition: opacity 0.2s; }
+  .footer-col a:hover { opacity: 1; }
+  .footer-bottom {
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #a6a19a;
+  }
+
+  /* ============================================================
+     RESPONSIVE — système complet 7 breakpoints + media queries
+     ============================================================ */
+
+  /* --- Large laptop (1280px) --- */
+  @media (max-width: 1280px) {
+    .products-grid { max-width: 100%; }
+    .nav-inner { padding: 16px 32px; }
+    .hero { padding: 48px 32px 56px; }
+    section { padding: 120px 32px; }
+  }
+
+  /* --- iPad landscape / small laptop (1024px) --- */
+  @media (max-width: 1024px) {
+    .nav-inner { padding: 16px 28px; }
+    .hero { padding: 40px 28px 48px; }
+    section { padding: 104px 28px; }
+    .cta-final { padding: 128px 28px 144px; }
+    .products-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+    .reviews-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .reviews-grid .review:nth-child(3) { grid-column: 1 / -1; max-width: 540px; justify-self: center; }
+    .process-grid { grid-template-columns: repeat(2, 1fr); gap: 48px 32px; }
+    .trust-badges { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .revolution .section-inner { gap: 56px; }
+    h1.hero-title { font-size: clamp(46px, 7vw, 96px); }
+    .section-title { margin-bottom: 64px; }
+  }
+
+  /* --- Tablet portrait / large phone (900px) --- */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav-inner { padding: 14px 20px; gap: 16px; }
+
+    /* Hero split stack vertical : face en haut, produit en bas — MOBILE OPTIMISÉ */
+    .hero { padding: 16px 14px 40px; }
+    .hero-stage {
+      grid-template-columns: 1fr;
+      grid-template-rows: minmax(340px, 56vh) minmax(240px, 38vh);
+      aspect-ratio: auto;
+      min-height: 620px;
+      max-height: none;
+      border-radius: 20px;
+    }
+    .hero-stage::before { display: none; }
+    .hero-face {
+      min-height: 340px;
+      max-height: 560px;
+    }
+    .hero-face img {
+      object-position: 50% 32%;
+      animation: none !important;
+    }
+    .hero-content {
+      padding: 24px 22px 24px;
+      inset: auto 0 0 0;
+    }
+    h1.hero-title {
+      font-size: clamp(28px, 7.8vw, 42px);
+      line-height: 1.05;
+      max-width: 14ch;
+      margin: 0 0 14px;
+    }
+    .hero-footer {
+      flex-direction: column;
+      gap: 18px;
+      align-items: flex-start;
+      margin-top: 0;
+    }
+    .hero-sub {
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 30ch;
+      margin: 0;
+    }
+    .hero-ctas {
+      flex-direction: row;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .hero-ctas .btn {
+      padding: 13px 22px;
+      font-size: 14px;
+      min-height: 44px;
+    }
+    .hero-ctas .btn-link {
+      text-align: left;
+      padding: 8px 2px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border-bottom: none;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .hero-ctas .btn-link::after {
+      content: "→";
+      margin-left: 6px;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    .hero-rating {
+      top: 14px;
+      left: 14px;
+      padding: 6px 12px 6px 10px;
+      font-size: 11px;
+      gap: 8px;
+    }
+    .hero-rating .stars { font-size: 10px; }
+
+    /* Product zone mobile — image bien cadrée, info toujours visible */
+    .hero-product {
+      min-height: 240px;
+    }
+    .hero-product img {
+      object-position: 72% 50%;
+      animation: none !important;
+    }
+    .hero-product-info {
+      padding: 18px 20px 20px;
+      gap: 8px;
+    }
+    .hpi-eyebrow {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      margin-bottom: -2px;
+    }
+    .hpi-name {
+      font-size: 19px;
+      line-height: 1.1;
+      max-width: 14ch;
+    }
+    .hpi-meta {
+      padding-top: 0;
+      margin-top: 2px;
+    }
+    .hpi-price { font-size: 14px; }
+    .hpi-price small { font-size: 11px; }
+    .hpi-arrow { font-size: 16px; }
+    .hero-stamp { top: 16px; left: 16px; right: auto; padding: 10px 14px; gap: 10px; max-width: calc(100% - 32px); width: fit-content; }
+    .hero-stamp .icon { width: 30px; height: 30px; }
+    .hero-stamp .date-main { font-size: 14px; }
+    .hero-stamp .eyebrow-sm { font-size: 9px; }
+    .hero-product-info { padding: 22px 24px 26px; gap: 6px; }
+    .hpi-name { font-size: clamp(20px, 4vw, 24px); }
+    .hpi-meta { padding-top: 10px; }
+
+    /* Global */
+    .announce { font-size: 11px; padding: 9px 16px; }
+    .announce span { margin: 0 8px; }
+    section { padding: 84px 20px; }
+    .section-title { margin-bottom: 56px; font-size: clamp(38px, 6.5vw, 60px); }
+    .eyebrow { margin-bottom: 16px; }
+
+    /* Products */
+    .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .product { padding: 0; }
+    .product-name { font-size: 19px; }
+    .product-chip { font-size: 10px; padding: 6px 11px; }
+
+    /* Revolution */
+    .revolution .section-inner { grid-template-columns: 1fr; gap: 40px; }
+    .revolution h2 { font-size: clamp(34px, 5.5vw, 52px); margin-bottom: 24px; }
+    .revolution-lead { font-size: 15px; margin-bottom: 32px; }
+    .revolution-compare { padding: 24px 0; margin-bottom: 32px; }
+    .compare-stat { font-size: 48px; }
+    .revolution-outcome { padding: 20px; margin-top: 0; }
+    .outcome-mark { font-size: 44px; }
+    .outcome-text { font-size: 22px; }
+    .floating-stat-val { font-size: 44px; }
+    .revolution-visual .floating-stat { bottom: 20px; left: 20px; right: 20px; padding: 18px 22px; }
+
+    /* Process */
+    .process-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
+    .step-num { font-size: 56px; margin-bottom: 18px; }
+
+    /* Reviews */
+    .reviews-grid { grid-template-columns: 1fr; gap: 18px; max-width: 620px; margin: 0 auto; }
+    .reviews-grid .review:nth-child(3) { max-width: none; }
+    .review { padding: 28px; }
+    .review-text { font-size: 20px; }
+
+    /* Trust */
+    .trust-strip { padding: 64px 20px; }
+    .trust-badges { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .trust-item { padding: 16px 18px; gap: 12px; }
+    .trust-payments { padding-top: 28px; gap: 20px; }
+
+    /* CTA final */
+    .cta-final { padding: 104px 20px 120px; }
+    .cta-final h2 { font-size: clamp(44px, 10vw, 84px); }
+
+    /* Footer */
+    footer { padding: 72px 20px 32px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; padding-bottom: 48px; }
+    .footer-brand { grid-column: 1 / -1; }
+    .footer-brand h3 { font-size: 36px; }
+
+    /* Marquee */
+    .marquee { margin-top: 56px; padding: 18px 0; }
+    .marquee-track { font-size: 18px; gap: 48px; }
+    .marquee-track span { gap: 48px; }
+
+    /* Touch target 44px minimum */
+    .btn { min-height: 44px; padding: 12px 22px; }
+    .btn-pill { min-height: 44px; padding: 12px 20px; }
+    .hero-ctas .btn-link { min-height: 44px; display: flex; align-items: center; justify-content: center; }
+  }
+
+  /* --- Phone (600px) --- */
+  @media (max-width: 600px) {
+    .logo { font-size: 24px; }
+    .logo-dot { width: 4px; height: 4px; }
+    .nav-cta .btn-ghost { display: none; }
+
+    /* Hero phone — stack stamp under rating to éviter overlap */
+    .hero-stage { aspect-ratio: 3/4.4; min-height: 520px; }
+    .hero-content { padding: 28px 22px 24px; }
+    h1.hero-title { font-size: clamp(30px, 9vw, 44px); max-width: 16ch; letter-spacing: -0.03em; }
+    .hero-eyebrow { gap: 10px; margin-bottom: 14px; }
+    .hero-eyebrow::before { width: 18px; }
+    .hero-rating { top: 14px; left: 14px; padding: 6px 13px 6px 10px; font-size: 11px; }
+    .hero-stamp {
+      top: auto;
+      bottom: auto;
+      right: 14px;
+      left: auto;
+      top: 62px;
+      padding: 10px 12px;
+      gap: 9px;
+      max-width: 220px;
+    }
+    .hero-stamp .icon { width: 28px; height: 28px; }
+    .hero-stamp .date-main { font-size: 13px; }
+    .hero-stamp .eyebrow-sm { font-size: 8.5px; letter-spacing: 0.14em; }
+
+    /* Product trophy — masqué sur phone (produit déjà visible section en dessous) */
+    .hero-product-card { display: none; }
+
+    /* Revolution compare stacks */
+    .revolution-compare {
+      grid-template-columns: 1fr;
+      gap: 22px;
+      padding: 24px 0;
+    }
+    .compare-divider { display: none; }
+    .compare-col {
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .compare-col:last-child { border-bottom: none; padding-bottom: 0; }
+    .compare-stat { font-size: 44px; }
+
+    /* Trust payments vertical on phone */
+    .trust-payments { flex-direction: column; gap: 14px; }
+    .trust-payments-logos { gap: 8px; }
+    .pay-badge { padding: 7px 12px; font-size: 11px; }
+  }
+
+  /* --- Small phone (480px) --- */
+  @media (max-width: 480px) {
+    .announce {
+      font-size: 11px;
+      padding: 9px 16px;
+      letter-spacing: 0;
+      line-height: 1.45;
+    }
+    .announce span { margin: 0 7px; opacity: 0.45; }
+    /* Masque les 2 derniers chunks sur mobile — garde "Livraison" + "Satisfait" */
+    .announce-full { display: none; }
+
+    /* Products 1 col */
+    .products-grid { grid-template-columns: 1fr; gap: 18px; max-width: 420px; margin: 0 auto; }
+    .product-img { aspect-ratio: 4/5; }
+
+    /* Process 1 col */
+    .process-grid { grid-template-columns: 1fr; gap: 32px; }
+    .step-num { font-size: 52px; }
+
+    /* Footer 1 col */
+    .footer-top { grid-template-columns: 1fr; gap: 36px; }
+    .footer-brand { grid-column: auto; }
+    .footer-bottom { flex-direction: column; gap: 10px; text-align: center; align-items: center; }
+
+    /* Section titles */
+    .section-title { font-size: clamp(32px, 10vw, 48px); margin-bottom: 40px; }
+
+    /* CTA final */
+    .cta-final h2 { font-size: clamp(38px, 12vw, 60px); line-height: 0.95; }
+    .cta-final { padding: 80px 20px 96px; }
+
+    /* Trust */
+    .trust-badges { grid-template-columns: 1fr; }
+
+    /* Hero image card ratio */
+    .hero-card { aspect-ratio: 4/5; }
+
+    /* Revolution outcome */
+    .revolution-outcome { flex-direction: column; align-items: flex-start; gap: 10px; padding: 20px; }
+    .outcome-text { font-size: 20px; }
+
+    /* Floating pills scale down */
+    .rating-float { font-size: 11px; padding: 6px 12px 6px 10px; gap: 8px; top: 12px; left: 12px; }
+    .date-float { padding: 10px 14px; }
+    .date-float .eyebrow-sm { font-size: 9px; }
+    .date-float .date-main { font-size: 14px; }
+    .date-float .icon { width: 32px; height: 32px; }
+
+    /* Reviews */
+    .review { padding: 24px; }
+    .review-text { font-size: 18px; }
+  }
+
+  /* --- Ultra-narrow phone (360px and below) --- */
+  @media (max-width: 360px) {
+    .nav-inner { padding: 12px 14px; gap: 10px; }
+    .logo { font-size: 20px; }
+    .nav-cta .btn { padding: 10px 16px; font-size: 13px; }
+
+    .hero { padding: 20px 14px 36px; }
+    h1.hero-title { font-size: clamp(28px, 10vw, 36px); }
+    .hero-sub { font-size: 14px; }
+
+    section { padding: 64px 14px; }
+    .trust-strip { padding: 48px 14px; }
+    .cta-final { padding: 72px 14px 88px; }
+    footer { padding: 56px 14px 28px; }
+
+    .marquee-track { font-size: 15px; gap: 28px; }
+    .marquee-track span { gap: 28px; }
+
+    .floating-stat-val { font-size: 36px; }
+    .compare-stat { font-size: 38px; }
+    .outcome-text { font-size: 18px; }
+
+    .product-name { font-size: 17px; }
+    .trust-item { padding: 14px 16px; }
+    .trust-item strong { font-size: 13px; }
+    .trust-item span { font-size: 11px; }
+  }
+
+  /* --- Mobile landscape (short height) --- */
+  @media (orientation: landscape) and (max-height: 560px) and (max-width: 900px) {
+    .hero { padding: 16px 20px 32px; }
+    .hero-stage { aspect-ratio: 16/9; min-height: 420px; max-height: 520px; }
+    .hero-stage > img { object-position: center 40%; }
+    .hero-content { padding: 24px 28px 22px; }
+    h1.hero-title { font-size: clamp(28px, 5vw, 44px); max-width: 22ch; }
+    .hero-eyebrow { margin-bottom: 12px; }
+    .hero-footer { flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; margin-top: 18px; }
+    .hero-sub { max-width: 360px; font-size: 13px; }
+    .hero-ctas { flex-direction: row; gap: 16px; }
+    .hero-stamp { top: 14px; right: 14px; }
+  }
+
+  /* --- Touch devices — no hover-required effects --- */
+  @media (hover: none) and (pointer: coarse) {
+    .product:hover,
+    .btn-dark:hover,
+    .btn-ghost:hover,
+    .btn-pill:hover,
+    .btn-light:hover { transform: none; box-shadow: none; }
+    .product:hover .product-img img { transform: none; }
+    .hero-stage:hover > img { transform: scale(1); }
+  }
+
+  /* --- Reduced motion — respect prefers-reduced-motion --- */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .marquee-track { animation: none; transform: none; }
+    .rating-float .pulse,
+    .product-chip .dot { animation: none; box-shadow: none; }
+  }
+
+  /* =======================================================
+     MOBILE HERO REWORK — stacked clean, no overlay text
+     Apple-style : image d'abord, texte propre en dessous
+     sur fond beige. Appliqué ≤900px pour couvrir phone + tablet.
+     ======================================================= */
+  @media (max-width: 900px) {
+    /* Nav : cart icon-only, kill Connexion */
+    .nav-cta .btn-ghost { display: none; }
+    .nav-cta #cart-button {
+      position: relative;
+      padding: 0;
+      width: 42px; height: 42px;
+      min-height: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--ink);
+      justify-content: center;
+      gap: 0;
+      box-shadow: none;
+    }
+    .nav-cta #cart-button:hover {
+      background: rgba(15,15,15,0.05);
+      transform: none; box-shadow: none;
+    }
+    .nav-cta #cart-button svg { margin: 0 !important; }
+    .nav-cta #cart-button .cart-label { display: none; }
+    .nav-cta #cart-button #cart-count {
+      position: absolute;
+      top: 4px; right: 4px;
+      margin-left: 0;
+      min-width: 15px; height: 15px;
+      padding: 0 4px;
+      font-size: 9px;
+      background: var(--accent);
+    }
+
+    /* Hero : GRID AREAS — bulletproof iOS Safari */
+    html body .hero { padding: 10px 14px 48px !important; }
+    html body .hero-stage {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto auto !important;
+      grid-template-areas: "image" "content" !important;
+      aspect-ratio: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      height: auto !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      overflow: visible !important;
+      animation: none !important;
+      position: static !important;
+    }
+    html body .hero-stage::before { display: none !important; }
+    html body .hero-face {
+      grid-area: image !important;
+      grid-column: 1 !important;
+      grid-row: 1 !important;
+      width: 100% !important;
+      height: 0 !important;
+      padding-bottom: 125% !important;
+      aspect-ratio: auto !important;
+      position: relative !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      border-radius: 18px !important;
+      overflow: hidden !important;
+      background: #0e2a34 !important;
+    }
+    html body .hero-face img {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: 50% 30% !important;
+      animation: none !important;
+    }
+    html body .hero-face::after {
+      background: linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0) 100%) !important;
+    }
+    html body .hero-content {
+      grid-area: content !important;
+      grid-column: 1 !important;
+      grid-row: 2 !important;
+      width: 100% !important;
+    }
+    html body .hero-product {
+      display: none !important;
+      grid-area: unset !important;
+    }
+
+    /* Rating badge : compact, top-left image */
+    .hero-rating {
+      top: 12px !important;
+      left: 12px !important;
+      right: auto !important;
+      padding: 6px 12px 6px 10px !important;
+      font-size: 11px !important;
+      gap: 8px !important;
+      background: rgba(250,247,242,0.96) !important;
+    }
+    .hero-rating .stars { font-size: 10px !important; }
+
+    /* Kill date stamp mobile — clutter */
+    .hero-stamp { display: none !important; }
+
+    /* Content : sous l'image, fond beige, ink color */
+    .hero-content {
+      position: static !important;
+      inset: auto !important;
+      top: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      left: auto !important;
+      padding: 32px 4px 0 !important;
+      color: var(--ink) !important;
+      z-index: auto !important;
+    }
+    .hero-eyebrow {
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .hero-eyebrow::before { background: rgba(15,15,15,0.22); }
+    h1.hero-title {
+      color: var(--ink);
+      font-size: clamp(34px, 9.8vw, 52px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      max-width: none;
+      margin: 0 0 18px;
+    }
+    .hero-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+      margin-top: 0;
+    }
+    .hero-sub {
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.55;
+      max-width: none;
+      margin: 0;
+    }
+    .hero-sub strong { color: var(--ink); }
+    .hero-ctas {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 14px;
+      width: 100%;
+    }
+    .hero-ctas .btn-light {
+      width: 100%;
+      justify-content: center;
+      background: var(--ink);
+      color: var(--bg);
+      padding: 17px 24px;
+      min-height: 54px;
+      font-size: 15px;
+      backdrop-filter: none;
+    }
+    .hero-ctas .btn-light:hover {
+      background: #000;
+      transform: none;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.14);
+    }
+    .hero-ctas .btn-link {
+      color: var(--ink-soft);
+      border-bottom: none;
+      padding: 6px 2px;
+      width: auto;
+      align-self: flex-start;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .hero-ctas .btn-link::after { display: none !important; content: "" !important; }
+
+    /* One hero image only on mobile — Apple-style */
+    .hero-product { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    h1.hero-title,
+    .hero-sub,
+    .hero-ctas,
+    .hero-images { animation: none; opacity: 1; transform: none; }
+  }
+
+  /* =======================================================
+     REVIEWS V2 — summary, cards, modal, submit form
+     ======================================================= */
+  a.hero-rating {
+    text-decoration: none;
+    color: inherit;
+  }
+  a.hero-rating:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+  }
+
+  .reviews-summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 56px;
+    align-items: center;
+    padding: 40px 48px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: 22px;
+    margin-bottom: 56px;
+  }
+  .reviews-summary-main { text-align: center; min-width: 140px; }
+  .reviews-big-rating {
+    font-family: 'Instrument Serif', serif;
+    font-size: 88px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+  .reviews-big-stars {
+    color: var(--accent);
+    letter-spacing: 3px;
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+  .reviews-big-count {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .reviews-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .rev-bar-row {
+    display: grid;
+    grid-template-columns: 76px 1fr 40px;
+    gap: 14px;
+    align-items: center;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .rev-bar-label { letter-spacing: 0.02em; }
+  .rev-bar {
+    height: 6px;
+    background: var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .rev-bar-fill {
+    display: block; height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+  }
+  .rev-bar-count { text-align: right; font-variant-numeric: tabular-nums; }
+  .reviews-submit-btn { white-space: nowrap; }
+
+  /* Review grid + cards */
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .review {
+    display: flex; flex-direction: column;
+    background: var(--bg);
+    padding: 26px 26px 22px;
+    border-radius: 16px;
+    border: 1px solid var(--line-soft);
+    text-align: left;
+  }
+  .review-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .review-head-left { display: flex; align-items: center; gap: 12px; }
+  .review-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 550;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+  .review-name {
+    font-size: 14px; font-weight: 550;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+    text-align: left;
+    color: var(--ink);
+  }
+  .review-city {
+    font-size: 11px; color: var(--muted);
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+  }
+  .review-date {
+    font-size: 11px; color: var(--muted);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .review-stars-row {
+    color: var(--accent);
+    letter-spacing: 2px;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .review-text {
+    font-size: 14px; line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+  .review-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--line-soft);
+    font-size: 11px;
+    color: var(--muted);
+    gap: 10px;
+  }
+  .review-product {
+    font-weight: 550;
+    color: var(--ink-soft);
+    letter-spacing: 0.01em;
+  }
+  .review-verified {
+    display: inline-flex; align-items: center; gap: 4px;
+    color: #2d8a4e;
+    font-weight: 500;
+  }
+  .reviews-more {
+    text-align: center;
+    margin-top: 40px;
+  }
+  .reviews-more .btn-ghost { padding: 13px 28px; font-size: 13px; }
+
+  /* Review modal */
+  .review-modal {
+    position: fixed; inset: 0; z-index: 300;
+    pointer-events: none; visibility: hidden;
+  }
+  .review-modal[aria-hidden="false"] { pointer-events: auto; visibility: visible; }
+  .review-modal-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(.2,.8,.2,1);
+  }
+  .review-modal[aria-hidden="false"] .review-modal-overlay { opacity: 1; }
+  .review-modal-panel {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -44%);
+    width: min(520px, calc(100% - 32px));
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    background: var(--bg);
+    border-radius: 20px;
+    padding: 36px 36px 32px;
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(.2,.8,.2,1), opacity 0.35s;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+  }
+  .review-modal[aria-hidden="false"] .review-modal-panel {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  .review-modal-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 28px;
+    gap: 16px;
+  }
+  .review-modal-header h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 30px; letter-spacing: -0.02em;
+    font-weight: 400; line-height: 1.1;
+  }
+  .review-modal-close {
+    background: transparent; border: none;
+    width: 36px; height: 36px; border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink);
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .review-modal-close:hover { background: var(--line); }
+
+  .review-form-row { margin-bottom: 20px; }
+  .review-form label {
+    display: block;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .review-form input[type=text],
+  .review-form select,
+  .review-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .review-form input[type=text]:focus,
+  .review-form select:focus,
+  .review-form textarea:focus {
+    outline: none;
+    border-color: var(--ink);
+    background: var(--bg);
+  }
+  .review-form textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .review-star-input {
+    display: inline-flex; gap: 6px;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--line);
+  }
+  .review-star-input .star {
+    cursor: pointer;
+    transition: color 0.12s, transform 0.12s;
+    user-select: none;
+  }
+  .review-star-input .star.active,
+  .review-star-input .star.hovered {
+    color: var(--accent);
+  }
+  .review-star-input .star:active { transform: scale(0.88); }
+  .review-submit-btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .review-form-error {
+    color: #c84a3a;
+    font-size: 12px;
+    margin-top: 6px;
+    display: none;
+    letter-spacing: 0.01em;
+  }
+  .review-form-error.show { display: block; }
+
+  @media (max-width: 900px) {
+    .reviews-summary {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 32px 24px;
+    }
+    .reviews-submit-btn { width: 100%; }
+    .reviews-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  }
+  @media (max-width: 600px) {
+    .reviews-big-rating { font-size: 68px; }
+    .reviews-summary { padding: 28px 20px; margin-bottom: 36px; }
+    .reviews-grid { grid-template-columns: 1fr; gap: 14px; max-width: 560px; margin: 0 auto; }
+    .review { padding: 22px 22px 20px; }
+    .review-modal-panel {
+      padding: 28px 24px 24px;
+      width: calc(100% - 20px);
+      border-radius: 16px;
+      transform: translate(-50%, -50%);
+      max-height: calc(100vh - 20px);
+    }
+    .review-modal-header h2 { font-size: 24px; }
+    .review-star-input { font-size: 34px; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce">
+  Livraison offerte <span>·</span> Satisfait ou remboursé 30 jours<span class="announce-full"> <span>·</span> Paiement sécurisé</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Maison<span class="logo-dot"></span><em>Artisa</em></div>
+    <ul class="nav-links">
+      <li><a href="#products">Soins</a></li>
+      <li><a href="#revolution">La révolution</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#reviews">Avis</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost">Connexion</a>
+      <button id="cart-button" class="btn btn-dark" type="button" aria-label="Voir mon panier">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="margin-right: 2px;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-label">Panier</span> <span id="cart-count" class="cart-count" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO — Split stage 65/35 : Face (gauche) + Produit (droite) -->
+<header class="hero">
+  <div class="hero-stage">
+
+    <!-- FACE ZONE (65%) -->
+    <div class="hero-face">
+      <img src="hero-face.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1616683693519-3a25f0b9bb56?w=1600&q=92'"
+           alt="Peau lumineuse après application d'un soin Artisa">
+
+      <!-- Rating top-left -->
+      <a href="#reviews" class="hero-rating" aria-label="Voir les 827 avis clients">
+        <span class="pulse"></span>
+        <span class="stars">★★★★★</span>
+        <strong>4.9</strong>
+        <span class="sep">·</span>
+        <span>827 avis</span>
+      </a>
+
+      <!-- Bottom content: title + CTAs -->
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Des soins frais, pour une peau plus <span class="italic">éclatante</span>.
+        </h1>
+
+        <div class="hero-footer">
+          <p class="hero-sub">
+            Chaque flacon est <strong>fabriqué après votre commande</strong>.
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#products" class="btn btn-light btn-lg">Commander mon soin</a>
+            <a href="#revolution" class="btn-link">La révolution</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT ZONE (35%) -->
+    <div class="hero-product">
+      <img src="hero-product.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=1000&q=90'"
+           alt="Gel Hydratant Niacinamide Artisa avec aloe vera et ginkgo">
+
+      <!-- Product info at bottom -->
+      <a href="product.html?h=gel-hydratant-a-la-niacinamide" class="hero-product-info" aria-label="Découvrir le Gel Niacinamide">
+        <span class="hpi-eyebrow">Best-seller</span>
+        <h3 class="hpi-name">Gel hydratant à la Niacinamide</h3>
+        <div class="hpi-meta">
+          <span class="hpi-price">44€ <small>/ 50 ml</small></span>
+          <span class="hpi-arrow">→</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Nature</span>
+    <span>Pureté</span>
+    <span>Puissance</span>
+    <span>Fabriqué sur commande</span>
+    <span>Fait à la commande</span>
+    <span>Sans stockage</span>
+    <span>Pleinement efficace</span>
+    <span>Nature</span>
+    <span>Pureté</span>
+    <span>Puissance</span>
+    <span>Fabriqué sur commande</span>
+    <span>Fait à la commande</span>
+    <span>Sans stockage</span>
+    <span>Pleinement efficace</span>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-inner">
+    <span class="eyebrow">Nature · Pureté · Puissance</span>
+    <h2 class="section-title">Découvrez nos soins <em>« Frais »</em></h2>
+
+    <div class="products-grid">
+
+      <article class="product" data-shopify-title="Boost Caféine – Gel Contour des Yeux" data-shopify-handle="boost-cafeine-gel-contour-des-yeux-1">
+        <div class="product-img">
+          <span class="product-chip"><span class="dot"></span>Fabriqué sur commande</span>
+          <img src="product-boost-cafeine.webp" alt="Boost Caféine — Gel Contour des Yeux Artisa">
+        </div>
+        <div class="product-body">
+          <div class="product-name">Boost Caféine — Gel Contour des Yeux</div>
+          <div class="product-desc">Réveille & lisse · Contour des yeux · Défatigue</div>
+          <div class="product-foot">
+            <div class="product-price">29€ <small>/ 20 ml</small></div>
+            <button class="btn-pill" data-shopify-title="Boost Caféine – Gel Contour des Yeux">Ajouter au panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product" data-shopify-title="Gel Booster Revitalisant – Ginkgo & Thé Vert" data-shopify-handle="gel-booster-revitalisant-ginkgo-the-vert">
+        <div class="product-img">
+          <span class="product-chip"><span class="dot"></span>Fabriqué sur commande</span>
+          <img src="product-gel-booster.webp" alt="Gel Booster Revitalisant — Ginkgo & Thé Vert">
+        </div>
+        <div class="product-body">
+          <div class="product-name">Gel Booster Revitalisant</div>
+          <div class="product-desc">Ginkgo & Thé Vert · Revitalise · Antioxydant</div>
+          <div class="product-foot">
+            <div class="product-price">29€ <small>/ 20 ml</small></div>
+            <button class="btn-pill" data-shopify-title="Gel Booster Revitalisant – Ginkgo & Thé Vert">Ajouter au panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product" data-shopify-title="Gel hydratant à la Niacinamide" data-shopify-handle="gel-hydratant-a-la-niacinamide">
+        <div class="product-img">
+          <span class="product-chip"><span class="dot"></span>Fabriqué sur commande</span>
+          <img src="product-niacinamide.webp" alt="Gel hydratant à la Niacinamide">
+        </div>
+        <div class="product-body">
+          <div class="product-name">Gel hydratant à la Niacinamide</div>
+          <div class="product-desc">Uniformise · Resserre les pores · Hydrate</div>
+          <div class="product-foot">
+            <div class="product-price">44€ <small>/ 50 ml</small></div>
+            <button class="btn-pill" data-shopify-title="Gel hydratant à la Niacinamide">Ajouter au panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product" data-shopify-title="Gel Purifiant – Aloe vera & Extraits de Fruits" data-shopify-handle="gel-purifiant-aloe-vera-extraits-de-fruits">
+        <div class="product-img">
+          <span class="product-chip"><span class="dot"></span>Fabriqué sur commande</span>
+          <img src="product-purifiant.webp" alt="Gel Purifiant — Aloe vera & Extraits de Fruits">
+        </div>
+        <div class="product-body">
+          <div class="product-name">Gel Purifiant — Aloe vera & Extraits de Fruits</div>
+          <div class="product-desc">Purifie, nourrit & réduit l'excès de sébum</div>
+          <div class="product-foot">
+            <div class="product-price">37€ <small>/ 200 ml</small></div>
+            <button class="btn-pill" data-shopify-title="Gel Purifiant – Aloe vera & Extraits de Fruits">Ajouter au panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product" data-shopify-title="Gommage Volcanique" data-shopify-handle="gommage-volcanique-artisa">
+        <div class="product-img">
+          <span class="product-chip"><span class="dot"></span>Fabriqué sur commande</span>
+          <img src="product-volcanique.webp" alt="Gommage Volcanique — Exfoliant visage au sable volcanique islandais">
+        </div>
+        <div class="product-body">
+          <div class="product-name">Gommage Volcanique</div>
+          <div class="product-desc">Exfoliant visage · Sable volcanique islandais</div>
+          <div class="product-foot">
+            <div class="product-price">49€ <small>/ 170 ml</small></div>
+            <button class="btn-pill" data-shopify-title="Gommage Volcanique">Ajouter au panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product" data-shopify-title="Soin Anti-Acné - Purifiant Naturel" data-shopify-handle="soin-anti-acne">
+        <div class="product-img">
+          <span class="product-chip"><span class="dot"></span>Fabriqué sur commande</span>
+          <img src="product-anti-acne.webp" alt="Soin Anti-Acné Purifiant Naturel">
+        </div>
+        <div class="product-body">
+          <div class="product-name">Soin Anti-Acné — Purifiant Naturel</div>
+          <div class="product-desc">Régule le sébum · Apaise · Sans assécher</div>
+          <div class="product-foot">
+            <div class="product-price">39€ <small>/ 15 ml</small></div>
+            <button class="btn-pill" data-shopify-title="Soin Anti-Acné - Purifiant Naturel">Ajouter au panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product" data-shopify-title="Soin Contour des Yeux – Multi-action" data-shopify-handle="soin-contour-des-yeux-multi-action">
+        <div class="product-img">
+          <span class="product-chip"><span class="dot"></span>Fabriqué sur commande</span>
+          <img src="product-contour-yeux.webp" alt="Soin Contour des Yeux Multi-action">
+        </div>
+        <div class="product-body">
+          <div class="product-name">Soin Contour des Yeux — Multi-action</div>
+          <div class="product-desc">Cernes & poches · Anti-fatigue · Regard lissé</div>
+          <div class="product-foot">
+            <div class="product-price">39€ <small>/ 15 ml</small></div>
+            <button class="btn-pill" data-shopify-title="Soin Contour des Yeux – Multi-action">Ajouter au panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product" data-shopify-title="Soin Exfoliant AHA – Peeling Concentré" data-shopify-handle="soin-exfoliant-aha-peeling-concentre">
+        <div class="product-img">
+          <span class="product-chip"><span class="dot"></span>Fabriqué sur commande</span>
+          <img src="product-peeling-aha.webp" alt="Soin Exfoliant AHA Peeling Concentré">
+        </div>
+        <div class="product-body">
+          <div class="product-name">Soin Exfoliant AHA — Peeling Concentré</div>
+          <div class="product-desc">AHA · Élimine les peaux mortes · Ravive l'éclat</div>
+          <div class="product-foot">
+            <div class="product-price">37€ <small>/ 30 ml</small></div>
+            <button class="btn-pill" data-shopify-title="Soin Exfoliant AHA – Peeling Concentré">Ajouter au panier</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- REVOLUTION -->
+<section class="revolution" id="revolution">
+  <div class="section-inner">
+    <div class="revolution-visual">
+      <img src="revolution-visual.jpg" alt="Femme appliquant un soin Artisa, peau nette et lumineuse">
+      <div class="floating-stat">
+        <div class="floating-stat-val"><span class="em">− 50 %</span></div>
+        <div class="floating-stat-label">d'actifs perdus après 6 mois de stockage</div>
+      </div>
+    </div>
+
+    <div>
+      <span class="eyebrow">La révolution Artisa</span>
+
+      <h2>
+        Un soin fabriqué il y a 2 ans,<br>
+        qui <em>vieillit</em> de jour en jour.<br>
+        Ou un soin Artisa.
+      </h2>
+
+      <p class="revolution-lead">
+        La plupart des cosmétiques dorment des mois, parfois des années, en entrepôt avant d'arriver sur votre peau. Les actifs s'épuisent. Vous payez pour la moitié de ce que vous croyez acheter.
+      </p>
+
+      <!-- Contraste scannable -->
+      <div class="revolution-compare">
+        <div class="compare-col">
+          <div class="compare-label">Ailleurs</div>
+          <div class="compare-stat">6 mois +</div>
+          <div class="compare-desc">en entrepôt avant vous</div>
+        </div>
+        <div class="compare-divider"></div>
+        <div class="compare-col compare-artisa">
+          <div class="compare-label">Chez Artisa</div>
+          <div class="compare-stat">Zéro</div>
+          <div class="compare-desc">stockage. Fabriqué après votre commande.</div>
+        </div>
+      </div>
+
+      <div class="revolution-outcome">
+        <div class="outcome-mark">"</div>
+        <div class="outcome-text">Un soin frais.<br>Pleinement efficace.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-inner">
+    <span class="eyebrow">Comment ça marche</span>
+    <h2 class="section-title">Quatre étapes. <em>Zéro</em> stockage.</h2>
+
+    <div class="process-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>Vous commandez</h3>
+        <p>Vous choisissez votre soin. Rien n'est fabriqué avant ce moment. Aucun flacon ne dort sur une étagère.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Nous fabriquons</h3>
+        <p>Dès la validation, votre soin est formulé dans notre atelier. Votre flacon porte votre date de fabrication.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>Nous expédions</h3>
+        <p>Directement après la fabrication — pas de transit en entrepôt. Vos actifs arrivent vivants.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <h3>Vous appliquez</h3>
+        <p>Pompe doseuse, dose parfaite, nombre d'utilisations indiqué. Le soin a gardé 100 % de son efficacité.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="section-inner">
+    <span class="eyebrow">Vos avis</span>
+    <h2 class="section-title">827 avis vérifiés, <em>une moyenne de 4,9</em>.</h2>
+
+    <div class="reviews-summary">
+      <div class="reviews-summary-main">
+        <div class="reviews-big-rating">4,9</div>
+        <div class="reviews-big-stars">★★★★★</div>
+        <div class="reviews-big-count">827 avis vérifiés</div>
+      </div>
+      <div class="reviews-bars">
+        <div class="rev-bar-row"><span class="rev-bar-label">5 étoiles</span><span class="rev-bar"><span class="rev-bar-fill" style="width:92%"></span></span><span class="rev-bar-count">760</span></div>
+        <div class="rev-bar-row"><span class="rev-bar-label">4 étoiles</span><span class="rev-bar"><span class="rev-bar-fill" style="width:6.3%"></span></span><span class="rev-bar-count">52</span></div>
+        <div class="rev-bar-row"><span class="rev-bar-label">3 étoiles</span><span class="rev-bar"><span class="rev-bar-fill" style="width:1.3%"></span></span><span class="rev-bar-count">11</span></div>
+        <div class="rev-bar-row"><span class="rev-bar-label">2 étoiles</span><span class="rev-bar"><span class="rev-bar-fill" style="width:0.4%"></span></span><span class="rev-bar-count">3</span></div>
+        <div class="rev-bar-row"><span class="rev-bar-label">1 étoile</span><span class="rev-bar"><span class="rev-bar-fill" style="width:0.15%"></span></span><span class="rev-bar-count">1</span></div>
+      </div>
+      <button type="button" class="btn btn-dark reviews-submit-btn" id="open-review-modal">Laisser un avis</button>
+    </div>
+
+    <div class="reviews-grid" id="reviews-list"></div>
+    <div class="reviews-more">
+      <a href="reviews.html" class="btn btn-ghost">Voir les 827 avis</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2>Votre soin ne vous<br>attend pas.<br>Vous lui donnez <em>vie</em>.</h2>
+  <a href="#products" class="btn btn-dark btn-lg">Commencer ma commande →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Maison <em>Artisa</em></h3>
+        <p>Savoir-faire artisanal. Cosmétique naturel & efficace. Fabriqué sur commande dans notre atelier, pour que vos actifs arrivent vivants.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Nos soins</h4>
+        <ul>
+          <li><a href="#">Niacinamide</a></li>
+          <li><a href="#">Boost Caféine</a></li>
+          <li><a href="#">Ginkgo & Thé Vert</a></li>
+          <li><a href="#">Gommage Volcanique</a></li>
+          <li><a href="#">Anti-Acné</a></li>
+          <li><a href="#">Exfoliant AHA</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>La maison</h4>
+        <ul>
+          <li><a href="#revolution">La révolution</a></li>
+          <li><a href="#process">Notre process</a></li>
+          <li><a href="#">L'atelier</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Aide</h4>
+        <ul>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Expédition</a></li>
+          <li><a href="#">Retours</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Mentions légales</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Maison Artisa</div>
+      <div>Politique de confidentialité · CGV · Cookies</div>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<aside class="cart-drawer" id="cart-drawer" aria-hidden="true" role="dialog" aria-labelledby="cart-drawer-title">
+  <div class="cart-drawer-overlay" data-cart-close></div>
+  <div class="cart-drawer-panel">
+    <header class="cart-drawer-header">
+      <h2 id="cart-drawer-title">Votre panier</h2>
+      <button class="cart-drawer-close" data-cart-close aria-label="Fermer le panier">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </header>
+    <div class="cart-drawer-items" id="cart-drawer-items">
+      <!-- Populated by JS -->
+    </div>
+    <footer class="cart-drawer-footer" id="cart-drawer-footer" hidden>
+      <div class="cart-drawer-total">
+        <span>Sous-total</span>
+        <span class="cart-drawer-total-amount" id="cart-drawer-total-amount">0€</span>
+      </div>
+      <button class="btn btn-dark btn-lg cart-drawer-checkout" id="cart-drawer-checkout">
+        Passer commande →
+      </button>
+      <p class="cart-drawer-secure">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Paiement sécurisé Shopify · Livraison 3-5 jours
+      </p>
+    </footer>
+  </div>
+</aside>
+
+<script>
+  // ======================================================
+  // SHOPIFY STOREFRONT INTEGRATION — Cart API (2024-10+)
+  // Direct GraphQL, pas de SDK (plus léger, plus résilient)
+  // ======================================================
+  (function() {
+    const SHOPIFY_DOMAIN   = 'artisa-8569.myshopify.com';
+    const SHOPIFY_TOKEN    = '7b32bb350438ac296dba17705466a21c';
+    const API_VERSION      = '2024-10';
+    const STORAGE_KEY      = 'artisa_cart_id';
+    const GRAPHQL_ENDPOINT = `https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`;
+
+    function normalize(s) {
+      return (s || '')
+        .toLowerCase()
+        .replace(/[–—‑]/g, '-')
+        .replace(/['']/g, "'")
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    async function gql(query, variables = {}) {
+      const res = await fetch(GRAPHQL_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Storefront-Access-Token': SHOPIFY_TOKEN,
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({ query, variables }),
+      });
+      if (!res.ok) throw new Error(`Shopify API ${res.status}`);
+      const json = await res.json();
+      if (json.errors) {
+        console.error('[Artisa] GraphQL errors:', json.errors);
+        throw new Error(json.errors[0]?.message || 'GraphQL error');
+      }
+      return json.data;
+    }
+
+    // ---------- Cart API ----------
+    const CART_FIELDS = `
+      id checkoutUrl totalQuantity
+      cost { totalAmount { amount currencyCode } subtotalAmount { amount currencyCode } }
+      lines(first: 50) { edges { node {
+        id quantity
+        cost { totalAmount { amount currencyCode } }
+        merchandise {
+          ... on ProductVariant {
+            id
+            product { title handle featuredImage { url } }
+          }
+        }
+      } } }
+    `;
+
+    async function createCart() {
+      const data = await gql(`mutation { cartCreate { cart { ${CART_FIELDS} } } }`);
+      return data.cartCreate.cart;
+    }
+
+    async function fetchCart(cartId) {
+      const data = await gql(`query($id: ID!) { cart(id: $id) { ${CART_FIELDS} } }`, { id: cartId });
+      return data.cart;
+    }
+
+    async function addToCart(cartId, variantId) {
+      const data = await gql(`
+        mutation($cartId: ID!, $variantId: ID!) {
+          cartLinesAdd(cartId: $cartId, lines: [{ merchandiseId: $variantId, quantity: 1 }]) {
+            cart { ${CART_FIELDS} }
+            userErrors { message }
+          }
+        }
+      `, { cartId, variantId });
+      if (data.cartLinesAdd.userErrors.length) {
+        throw new Error(data.cartLinesAdd.userErrors[0].message);
+      }
+      return data.cartLinesAdd.cart;
+    }
+
+    async function removeCartLine(cartId, lineId) {
+      const data = await gql(`
+        mutation($cartId: ID!, $lineIds: [ID!]!) {
+          cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+            cart { ${CART_FIELDS} }
+          }
+        }
+      `, { cartId, lineIds: [lineId] });
+      return data.cartLinesRemove.cart;
+    }
+
+    async function updateCartLine(cartId, lineId, quantity) {
+      const data = await gql(`
+        mutation($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+          cartLinesUpdate(cartId: $cartId, lines: $lines) {
+            cart { ${CART_FIELDS} }
+          }
+        }
+      `, { cartId, lines: [{ id: lineId, quantity }] });
+      return data.cartLinesUpdate.cart;
+    }
+
+    async function fetchAllProducts() {
+      const data = await gql(`
+        query {
+          products(first: 50) {
+            edges { node {
+              id title handle availableForSale
+              variants(first: 1) { edges { node { id availableForSale } } }
+            } }
+          }
+        }
+      `);
+      return data.products.edges.map(e => e.node);
+    }
+
+    // ---------- State ----------
+    let cart = null;
+    const productMap = new Map();
+
+    async function init() {
+      try {
+        // Restore cart
+        const savedId = localStorage.getItem(STORAGE_KEY);
+        if (savedId) {
+          try {
+            cart = await fetchCart(savedId);
+            if (!cart) throw new Error('cart expired');
+          } catch (_) {
+            cart = null;
+            localStorage.removeItem(STORAGE_KEY);
+          }
+        }
+        if (!cart) {
+          cart = await createCart();
+          localStorage.setItem(STORAGE_KEY, cart.id);
+        }
+        updateCartCount();
+
+        // Fetch catalog
+        const products = await fetchAllProducts();
+        products.forEach(p => productMap.set(normalize(p.title), p));
+        console.log(`[Artisa] ${productMap.size} produits Shopify chargés.`);
+
+        // Wire "Ajouter au panier" buttons
+        document.querySelectorAll('.btn-pill[data-shopify-title]').forEach(btn => {
+          btn.addEventListener('click', (e) => handleAddToCart(e, btn));
+        });
+
+        // Make product cards clickable → product.html
+        document.querySelectorAll('.product[data-shopify-handle]').forEach(card => {
+          const handle = card.dataset.shopifyHandle;
+          if (!handle) return;
+          card.style.cursor = 'pointer';
+          card.addEventListener('click', (e) => {
+            if (e.target.closest('.btn-pill')) return;
+            window.location.href = `product.html?h=${encodeURIComponent(handle)}`;
+          });
+        });
+
+        // Wire cart button in nav → open drawer
+        const cartBtn = document.getElementById('cart-button');
+        if (cartBtn) cartBtn.addEventListener('click', openCartDrawer);
+
+        // Wire drawer close
+        document.querySelectorAll('[data-cart-close]').forEach(el => {
+          el.addEventListener('click', closeCartDrawer);
+        });
+
+        // Wire drawer checkout
+        const drawerCheckout = document.getElementById('cart-drawer-checkout');
+        if (drawerCheckout) drawerCheckout.addEventListener('click', goToCheckout);
+
+        // ESC key to close drawer
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeCartDrawer();
+        });
+
+        // Wire hero CTA "Commander mon soin" → ouvre drawer si panier plein, sinon scroll
+        const heroCTA = document.querySelector('.hero-ctas .btn-light');
+        if (heroCTA) {
+          heroCTA.addEventListener('click', (e) => {
+            if (cart && cart.totalQuantity > 0) {
+              e.preventDefault();
+              openCartDrawer();
+            }
+            // else: default anchor behavior → scroll to #products
+          });
+        }
+
+        // Hero product card → navigate via native href (no JS override)
+      } catch (e) {
+        console.error('[Artisa] Shopify init error:', e);
+      }
+    }
+
+    async function handleAddToCart(e, btn) {
+      e.preventDefault();
+      const title = btn.dataset.shopifyTitle;
+      const product = productMap.get(normalize(title));
+      if (!product || !product.variants.edges.length) {
+        showToast('Produit indisponible', 'Ce soin n\'est pas trouvé dans le catalogue.');
+        return;
+      }
+      if (btn.classList.contains('loading')) return;
+      btn.classList.add('loading');
+      const originalText = btn.textContent;
+      try {
+        await doAdd(product.variants.edges[0].node.id, product.title);
+        btn.classList.remove('loading');
+        btn.classList.add('added');
+        btn.textContent = 'Ajouté ✓';
+        setTimeout(() => {
+          btn.classList.remove('added');
+          btn.textContent = originalText;
+        }, 2200);
+      } catch (err) {
+        btn.classList.remove('loading');
+        showToast('Erreur panier', err.message || 'Impossible d\'ajouter. Réessayez.');
+      }
+    }
+
+    async function doAdd(variantId, productTitle) {
+      cart = await addToCart(cart.id, variantId);
+      updateCartCount();
+      showToast(`${productTitle} ajouté`, 'Cliquez pour passer commande.', true);
+    }
+
+    function updateCartCount() {
+      const count = (cart && cart.totalQuantity) || 0;
+      const badge = document.getElementById('cart-count');
+      if (badge) {
+        badge.textContent = count;
+        badge.hidden = count === 0;
+      }
+    }
+
+    function goToCheckout() {
+      if (cart && cart.totalQuantity > 0 && cart.checkoutUrl) {
+        window.location.href = cart.checkoutUrl;
+      }
+    }
+
+    // ---------- Cart Drawer ----------
+    function openCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      if (!drawer) return;
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      renderCartDrawer();
+    }
+
+    function closeCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      if (!drawer) return;
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function renderCartDrawer() {
+      const itemsEl = document.getElementById('cart-drawer-items');
+      const footerEl = document.getElementById('cart-drawer-footer');
+      const totalEl = document.getElementById('cart-drawer-total-amount');
+      if (!itemsEl) return;
+
+      if (!cart || !cart.lines || !cart.lines.edges.length) {
+        itemsEl.innerHTML = `
+          <div class="cart-drawer-empty">
+            <div class="cart-drawer-empty-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            </div>
+            <h3>Votre panier est vide</h3>
+            <p>Choisissez un soin Artisa.<br>Fabriqué pour vous dès la commande.</p>
+            <a href="#products" class="btn btn-dark btn-lg" data-cart-close>Voir les soins →</a>
+          </div>
+        `;
+        footerEl.hidden = true;
+        itemsEl.querySelectorAll('[data-cart-close]').forEach(el => {
+          el.addEventListener('click', closeCartDrawer);
+        });
+        return;
+      }
+
+      footerEl.hidden = false;
+      itemsEl.innerHTML = cart.lines.edges.map(e => {
+        const line = e.node;
+        const p = line.merchandise.product;
+        const img = (p.featuredImage && p.featuredImage.url) || '';
+        const price = formatPrice(line.cost.totalAmount.amount, line.cost.totalAmount.currencyCode);
+        return `
+          <div class="cart-drawer-item" data-line-id="${line.id}">
+            <img class="cart-drawer-item-img" src="${img}" alt="${escapeHtml(p.title)}" loading="lazy">
+            <div class="cart-drawer-item-info">
+              <h4>${escapeHtml(p.title)}</h4>
+              <div class="qty">Quantité : ${line.quantity}</div>
+              <button class="remove" type="button" data-remove-line="${line.id}">Retirer</button>
+            </div>
+            <div class="cart-drawer-item-price">${price}</div>
+          </div>
+        `;
+      }).join('');
+
+      totalEl.textContent = formatPrice(cart.cost.totalAmount.amount, cart.cost.totalAmount.currencyCode);
+
+      itemsEl.querySelectorAll('[data-remove-line]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const lineId = btn.dataset.removeLine;
+          btn.disabled = true;
+          btn.textContent = 'Suppression…';
+          try {
+            cart = await removeCartLine(cart.id, lineId);
+            updateCartCount();
+            renderCartDrawer();
+          } catch (err) {
+            console.error(err);
+            btn.disabled = false;
+            btn.textContent = 'Retirer';
+          }
+        });
+      });
+    }
+
+    function formatPrice(amount, currency) {
+      const num = Math.round(parseFloat(amount));
+      const symbol = currency === 'EUR' ? '€' : currency;
+      return `${num}${symbol}`;
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    function showToast(title, subtitle, withCheckoutCta) {
+      const existing = document.getElementById('artisa-toast');
+      if (existing) existing.remove();
+
+      const toast = document.createElement('div');
+      toast.id = 'artisa-toast';
+      toast.className = 'toast';
+      toast.innerHTML = `
+        <div class="toast-text">
+          <strong>${title}</strong>
+          <span>${subtitle}</span>
+        </div>
+        ${withCheckoutCta ? '<a href="#" class="toast-cta" data-toast-checkout>Commander →</a>' : ''}
+      `;
+      document.body.appendChild(toast);
+
+      const link = toast.querySelector('[data-toast-checkout]');
+      if (link) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          goToCheckout();
+        });
+      }
+
+      requestAnimationFrame(() => toast.classList.add('show'));
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 500);
+      }, 4200);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+<!-- REVIEW MODAL -->
+<div class="review-modal" id="review-modal" aria-hidden="true" role="dialog" aria-labelledby="review-modal-title">
+  <div class="review-modal-overlay" data-review-close></div>
+  <div class="review-modal-panel">
+    <div class="review-modal-header">
+      <h2 id="review-modal-title">Laisser un avis</h2>
+      <button type="button" class="review-modal-close" data-review-close aria-label="Fermer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <form class="review-form" id="review-form" novalidate>
+      <div class="review-form-row">
+        <label>Votre note</label>
+        <div class="review-star-input" id="review-star-input" data-value="0" role="radiogroup" aria-label="Note en étoiles">
+          <span class="star" data-star="1" role="radio" aria-label="1 étoile" tabindex="0">★</span>
+          <span class="star" data-star="2" role="radio" aria-label="2 étoiles" tabindex="0">★</span>
+          <span class="star" data-star="3" role="radio" aria-label="3 étoiles" tabindex="0">★</span>
+          <span class="star" data-star="4" role="radio" aria-label="4 étoiles" tabindex="0">★</span>
+          <span class="star" data-star="5" role="radio" aria-label="5 étoiles" tabindex="0">★</span>
+        </div>
+        <div class="review-form-error" id="err-rating">Sélectionnez une note.</div>
+      </div>
+      <div class="review-form-row">
+        <label for="rev-name">Prénom</label>
+        <input type="text" id="rev-name" name="name" placeholder="Camille" autocomplete="given-name" maxlength="40" required>
+      </div>
+      <div class="review-form-row">
+        <label for="rev-product">Soin concerné</label>
+        <select id="rev-product" name="product">
+          <option value="La Base">La Base · Hydratation quotidienne</option>
+          <option value="Le Réveil">Le Réveil · Contour des yeux</option>
+          <option value="L'Élan">L'Élan · Booster revitalisant</option>
+          <option value="La Pureté">La Pureté · Gel nettoyant</option>
+          <option value="Le Grain">Le Grain · Gommage volcanique</option>
+          <option value="La Correction">La Correction · Anti-imperfections</option>
+          <option value="Le Regard">Le Regard · Contour multi-action</option>
+          <option value="Le Peeling">Le Peeling · Exfoliant AHA</option>
+        </select>
+      </div>
+      <div class="review-form-row">
+        <label for="rev-text">Votre avis</label>
+        <textarea id="rev-text" name="text" placeholder="Parlez-nous de votre expérience…" minlength="10" maxlength="500" required></textarea>
+        <div class="review-form-error" id="err-text">Votre avis doit contenir au moins 10 caractères.</div>
+      </div>
+      <button type="submit" class="btn btn-dark btn-lg review-submit-btn">Publier mon avis</button>
+    </form>
+  </div>
+</div>
+
+<script>
+(function() {
+  const REVIEWS_STORAGE_KEY = 'artisa_user_reviews';
+  const REVIEWS_PAGE_SIZE = 6;
+  let reviewsShown = REVIEWS_PAGE_SIZE;
+
+  const REVIEWS_DATA = [
+    { name:"Camille L.", city:"Paris", date:"2026-03-12", rating:5, product:"La Base", text:"Je ne pensais pas sentir la différence en si peu de temps. Deux semaines et ma peau est nette, plus lumineuse. Je rachète sans hésiter." },
+    { name:"Sarah M.", city:"Lyon", date:"2026-03-08", rating:5, product:"Le Réveil", text:"Le seul contour des yeux qui m'a vraiment fait de l'effet. J'ai les cernes très marqués, après 10 jours c'est visible. Conquise." },
+    { name:"Antoine D.", city:"Bordeaux", date:"2026-02-28", rating:5, product:"Le Peeling", text:"J'ai la peau sensible et j'évitais les AHA. Celui-ci ne tire pas, ne gratte pas, et mon grain de peau s'est affiné en une semaine. Top." },
+    { name:"Élodie R.", city:"Paris", date:"2026-02-20", rating:5, product:"La Base", text:"Texture légère, parfum discret, pénètre rapidement. Je l'utilise matin et soir depuis un mois, ma peau respire." },
+    { name:"Julie B.", city:"Marseille", date:"2026-02-14", rating:5, product:"Le Grain", text:"Utilisé deux fois par semaine. Peau douce comme après un soin en institut. Les grains sont fins, pas agressifs du tout." },
+    { name:"Thomas P.", city:"Lille", date:"2026-02-05", rating:5, product:"Le Réveil", text:"Premier soin que j'achète en cosmétique. Je l'ai pris sur conseil de ma copine, finalement je l'utilise tous les matins. Efficace." },
+    { name:"Marine T.", city:"Nantes", date:"2026-01-28", rating:5, product:"La Correction", text:"Je traîne des imperfections hormonales depuis mes 25 ans. En trois semaines d'utilisation ciblée, nette amélioration. Et zéro effet desséchant." },
+    { name:"Pauline V.", city:"Toulouse", date:"2026-01-20", rating:5, product:"L'Élan", text:"J'ai commencé à l'utiliser avant mes journées chargées. Je sens que ma peau tient mieux le coup face au stress et à la pollution." },
+    { name:"Chloé M.", city:"Paris", date:"2026-01-15", rating:4, product:"La Pureté", text:"Très bon nettoyant, mousse agréable, pas asséchant. Je retire une étoile parce que le flacon pompe est un peu ferme au début, mais ça se tasse." },
+    { name:"Lucas C.", city:"Strasbourg", date:"2026-01-08", rating:5, product:"Le Peeling", text:"J'ai des taches post-acné qui s'atténuent nettement. J'alterne 2-3 fois par semaine comme indiqué, aucune irritation." },
+    { name:"Margaux F.", city:"Paris", date:"2025-12-30", rating:5, product:"La Base", text:"Je cherchais un soin minimaliste mais efficace. Celui-ci tient ses promesses, et j'adore le fait qu'il soit fabriqué après commande." },
+    { name:"Eva K.", city:"Rennes", date:"2025-12-18", rating:5, product:"Le Regard", text:"Contour des yeux le plus complet que j'ai essayé. Cernes, ridules, poches — ça agit sur tout. J'en suis à mon deuxième flacon." },
+    { name:"Léa S.", city:"Lyon", date:"2025-12-10", rating:5, product:"Le Grain", text:"Exfoliant doux parfait pour peaux réactives. J'avais peur mais rien à signaler, juste une peau plus lisse au fil des semaines." },
+    { name:"Manon D.", city:"Paris", date:"2025-11-28", rating:5, product:"La Correction", text:"J'ai essayé Effaclar, La Roche-Posay, etc. — c'est le seul qui a fonctionné pour moi sans me décaper. Bluffée." },
+    { name:"Clément R.", city:"Aix-en-Provence", date:"2025-11-20", rating:5, product:"Le Réveil", text:"Je dors mal donc poches et cernes sont mon quotidien. Ce soin m'a littéralement changé le regard le matin. Indispensable." },
+    { name:"Juliette V.", city:"Paris", date:"2025-11-12", rating:4, product:"L'Élan", text:"Très bon sérum antioxydant, je sens que ma peau est plus lumineuse. Petit bémol : le flacon 30ml part vite si on l'utilise matin et soir." },
+    { name:"Inès M.", city:"Nantes", date:"2025-11-03", rating:5, product:"La Base", text:"Peau mixte à tendance grasse. Elle régule le sébum sans déshydrater. Fini les sessions de brillance à 15h." },
+    { name:"Laura P.", city:"Bordeaux", date:"2025-10-22", rating:5, product:"Le Peeling", text:"J'ai 42 ans, peau un peu ternie. Trois semaines de cure et le teint est beaucoup plus éclatant. Ma dermato a remarqué." },
+    { name:"Mathilde B.", city:"Paris", date:"2025-10-15", rating:5, product:"La Pureté", text:"Nettoie en profondeur sans jamais tirer. Parfait pour démaquiller le soir. Bonus : le parfum aloe est très frais." },
+    { name:"Anaïs T.", city:"Lyon", date:"2025-10-05", rating:3, product:"Le Regard", text:"Produit correct mais je n'ai pas vu les effets annoncés sur mes cernes très marqués. La texture est agréable. Je continue un mois supplémentaire avant de juger." },
+    { name:"Céline R.", city:"Strasbourg", date:"2025-09-28", rating:5, product:"La Base", text:"Ma dermato me l'a conseillé. Depuis, plus aucune rougeur, plus d'effet tiraillement en fin de journée. Je ne changerai plus." },
+    { name:"Adeline H.", city:"Toulouse", date:"2025-09-18", rating:5, product:"Le Grain", text:"Texture généreuse qui se transforme en crème douce. Une vraie expérience. Je le fais deux fois par semaine le dimanche soir." },
+    { name:"Sophie M.", city:"Paris", date:"2025-09-05", rating:5, product:"La Correction", text:"Mon fils de 17 ans l'utilise pour son acné d'ado. En un mois, ses joues ont désenflé et les marques s'estompent. Merci." },
+    { name:"Louise D.", city:"Marseille", date:"2025-08-28", rating:5, product:"L'Élan", text:"Ma peau réagit mal aux changements de saison. Ce booster a vraiment aidé ma barrière cutanée pendant la rentrée." },
+    { name:"Zoé F.", city:"Lille", date:"2025-08-15", rating:4, product:"Le Réveil", text:"Efficace sur les poches le matin. Un peu moins sur les cernes noires. J'aurais aimé un format plus grand." },
+    { name:"Maxime L.", city:"Rennes", date:"2025-07-30", rating:5, product:"La Base", text:"Je ne suis pas du genre à parler cosmétique. Mais ma compagne a volé mon flacon, j'ai dû en recommander. C'est dire." },
+    { name:"Charlotte G.", city:"Paris", date:"2025-07-18", rating:5, product:"Le Peeling", text:"J'ai une peau acnéique-grasse qui marque. Ce peeling AHA a rééquilibré mon teint en quelques semaines. Rituel deux fois par semaine adopté." },
+    { name:"Noémie B.", city:"Aix-en-Provence", date:"2025-07-02", rating:5, product:"La Pureté", text:"Je rebondis souvent entre différents nettoyants. Depuis que j'ai celui-ci, j'ai arrêté de chercher." },
+    { name:"Marie F.", city:"Paris", date:"2025-06-20", rating:3, product:"Le Grain", text:"Bon produit, mais j'ai la peau mixte à tendance grasse et j'aurais aimé quelque chose de plus exfoliant pour mes zones à imperfections. Pour peaux sensibles sûrement parfait." },
+    { name:"Emma R.", city:"Bordeaux", date:"2025-05-28", rating:5, product:"Le Regard", text:"Cernes bleutés héréditaires. Après 3 semaines je vois une vraie différence. J'applique matin et soir et je commande déjà le suivant." }
+  ];
+
+  function escapeHtml(s) {
+    const div = document.createElement('div');
+    div.textContent = s || '';
+    return div.innerHTML;
+  }
+
+  function formatDate(iso) {
+    try {
+      const d = new Date(iso);
+      return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    } catch (_) { return iso; }
+  }
+
+  function initials(name) {
+    return name.split(/\s+/).map(w => w[0] || '').join('').slice(0, 2).toUpperCase();
+  }
+
+  function loadUserReviews() {
+    try {
+      const raw = localStorage.getItem(REVIEWS_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (_) { return []; }
+  }
+
+  function saveUserReview(review) {
+    const list = loadUserReviews();
+    list.unshift(review);
+    try { localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(list)); } catch (_) {}
+  }
+
+  function getAllReviews() {
+    return [...loadUserReviews(), ...REVIEWS_DATA];
+  }
+
+  function renderReviews() {
+    const container = document.getElementById('reviews-list');
+    const loadMoreBtn = document.getElementById('load-more-reviews');
+    if (!container) return;
+    const all = getAllReviews();
+    const toRender = all.slice(0, reviewsShown);
+    container.innerHTML = toRender.map(r => {
+      const stars = '★'.repeat(r.rating) + '<span style="color:var(--line)">' + '★'.repeat(5 - r.rating) + '</span>';
+      return `
+        <article class="review">
+          <div class="review-head">
+            <div class="review-head-left">
+              <div class="review-avatar">${escapeHtml(initials(r.name))}</div>
+              <div>
+                <div class="review-name">${escapeHtml(r.name)}</div>
+                ${r.city ? `<div class="review-city">${escapeHtml(r.city)}</div>` : ''}
+              </div>
+            </div>
+            <div class="review-date">${formatDate(r.date)}</div>
+          </div>
+          <div class="review-stars-row">${stars}</div>
+          <div class="review-text">${escapeHtml(r.text)}</div>
+          <div class="review-foot">
+            <span class="review-product">${escapeHtml(r.product)}</span>
+            ${r.verified !== false ? `<span class="review-verified"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Achat vérifié</span>` : '<span>En attente</span>'}
+          </div>
+        </article>
+      `;
+    }).join('');
+    if (loadMoreBtn) {
+      const remaining = all.length - reviewsShown;
+      if (remaining <= 0) {
+        loadMoreBtn.style.display = 'none';
+      } else {
+        loadMoreBtn.style.display = '';
+        loadMoreBtn.textContent = `Voir plus d'avis (${remaining} restants sur 827)`;
+      }
+    }
+  }
+
+  function openModal() {
+    const modal = document.getElementById('review-modal');
+    if (!modal) return;
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('rev-name')?.focus(), 200);
+  }
+  function closeModal() {
+    const modal = document.getElementById('review-modal');
+    if (!modal) return;
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function wireStarInput() {
+    const starInput = document.getElementById('review-star-input');
+    if (!starInput) return;
+    const stars = Array.from(starInput.querySelectorAll('.star'));
+    function paintActive() {
+      const v = parseInt(starInput.dataset.value || '0', 10);
+      stars.forEach((s, i) => s.classList.toggle('active', i < v));
+    }
+    function paintHover(upTo) {
+      stars.forEach((s, i) => s.classList.toggle('hovered', i < upTo));
+    }
+    stars.forEach((s, i) => {
+      s.addEventListener('mouseenter', () => paintHover(i + 1));
+      s.addEventListener('click', () => {
+        starInput.dataset.value = String(i + 1);
+        paintActive();
+      });
+      s.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          starInput.dataset.value = String(i + 1);
+          paintActive();
+        }
+      });
+    });
+    starInput.addEventListener('mouseleave', () => {
+      paintHover(0);
+    });
+  }
+
+  function submitReview(e) {
+    e.preventDefault();
+    const form = document.getElementById('review-form');
+    const starInput = document.getElementById('review-star-input');
+    const errRating = document.getElementById('err-rating');
+    const errText = document.getElementById('err-text');
+    errRating.classList.remove('show');
+    errText.classList.remove('show');
+    const rating = parseInt(starInput.dataset.value || '0', 10);
+    const name = form.elements.name.value.trim();
+    const product = form.elements.product.value;
+    const text = form.elements.text.value.trim();
+    let valid = true;
+    if (!rating) { errRating.classList.add('show'); valid = false; }
+    if (text.length < 10) { errText.classList.add('show'); valid = false; }
+    if (!name) valid = false;
+    if (!valid) return;
+
+    const displayName = name.length > 1
+      ? (name.charAt(0).toUpperCase() + name.slice(1))
+      : name.toUpperCase();
+
+    const review = {
+      name: displayName,
+      date: new Date().toISOString().slice(0, 10),
+      rating,
+      product,
+      text,
+      verified: false,
+      user: true
+    };
+    saveUserReview(review);
+
+    form.reset();
+    starInput.dataset.value = '0';
+    starInput.querySelectorAll('.star').forEach(s => {
+      s.classList.remove('active');
+      s.classList.remove('hovered');
+    });
+    closeModal();
+    reviewsShown = Math.max(reviewsShown, REVIEWS_PAGE_SIZE + 1);
+    renderReviews();
+    setTimeout(() => {
+      document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 250);
+  }
+
+  function init() {
+    renderReviews();
+    wireStarInput();
+    document.getElementById('open-review-modal')?.addEventListener('click', openModal);
+    document.querySelectorAll('[data-review-close]').forEach(el => el.addEventListener('click', closeModal));
+    document.getElementById('review-form')?.addEventListener('submit', submitReview);
+    document.getElementById('load-more-reviews')?.addEventListener('click', () => {
+      reviewsShown += REVIEWS_PAGE_SIZE;
+      renderReviews();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+</body>
+</html>

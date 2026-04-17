@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Avis clients · Maison Artisa</title>
+<meta name="description" content="827 avis vérifiés, 4,9 de moyenne. Les retours clients sur les soins Maison Artisa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;450;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4efe8;
+    --bg-soft: #faf7f2;
+    --bg-deep: #ebe3d5;
+    --ink: #0f0f0f;
+    --ink-soft: #3f3f3d;
+    --muted: #77726a;
+    --line: #e3ddd3;
+    --line-soft: #ebe5db;
+    --accent: #2d3a2e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-weight: 400;
+  }
+  :focus { outline: none; }
+  :focus-visible {
+    outline: 1.5px solid var(--ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  button { font-family: inherit; }
+
+  .announce {
+    text-align: center;
+    font-size: 11px;
+    padding: 10px 20px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(244, 239, 232, 0.88);
+    backdrop-filter: saturate(180%) blur(24px);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    border-bottom: 1px solid rgba(227, 221, 211, 0.4);
+  }
+  .nav-inner {
+    max-width: 1440px; margin: 0 auto;
+    padding: 20px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 26px; letter-spacing: -0.015em;
+    color: var(--ink); text-decoration: none;
+    display: inline-flex; align-items: baseline; gap: 5px;
+  }
+  .logo em { font-style: italic; }
+  .nav-links {
+    display: flex; gap: 38px; list-style: none;
+    font-size: 13px; font-weight: 450;
+  }
+  .nav-links a {
+    color: var(--ink); text-decoration: none;
+    opacity: 0.7; transition: opacity 0.25s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta { display: flex; gap: 6px; align-items: center; }
+  .nav-icon-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: transparent; border: none; cursor: pointer;
+    color: var(--ink); transition: background 0.2s;
+    position: relative;
+    display: inline-flex; align-items: center; justify-content: center;
+    text-decoration: none;
+  }
+  .nav-icon-btn:hover { background: rgba(15,15,15,0.05); }
+  .cart-count {
+    position: absolute; top: 6px; right: 4px;
+    min-width: 16px; height: 16px; padding: 0 4px;
+    background: var(--accent); color: var(--bg);
+    border-radius: 999px;
+    font-size: 10px; font-weight: 600;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .cart-count[hidden] { display: none; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none; cursor: pointer;
+    border: none;
+    font-family: inherit;
+    letter-spacing: 0.01em;
+    transition: all 0.3s cubic-bezier(.2,.8,.2,1);
+  }
+  .btn-dark { background: var(--ink); color: var(--bg); min-height: 48px; }
+  .btn-dark:hover { background: #000; transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,0.14); }
+  .btn-ghost {
+    background: transparent; color: var(--ink);
+    border: 1px solid rgba(15,15,15,0.18);
+  }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .btn-lg { padding: 17px 32px; font-size: 14px; min-height: 54px; }
+
+  .breadcrumb {
+    max-width: 1440px; margin: 0 auto;
+    padding: 32px 40px 0;
+    font-size: 12px; color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .breadcrumb a {
+    color: inherit; text-decoration: none;
+    transition: color 0.2s;
+  }
+  .breadcrumb a:hover { color: var(--ink); }
+  .breadcrumb-sep { margin: 0 8px; opacity: 0.5; }
+
+  /* =============== HEADER =============== */
+  .reviews-header {
+    max-width: 1440px; margin: 0 auto;
+    padding: 36px 40px 52px;
+  }
+  .reviews-header .eyebrow {
+    font-size: 11px; letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted); font-weight: 500;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+  .reviews-header h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(44px, 5.8vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    max-width: 18ch;
+    margin-bottom: 24px;
+    text-wrap: balance;
+  }
+  .reviews-header h1 em { font-style: italic; }
+  .reviews-header p {
+    font-size: 16px;
+    color: var(--ink-soft);
+    max-width: 58ch;
+    line-height: 1.6;
+  }
+
+  /* =============== MAIN =============== */
+  .reviews-main {
+    max-width: 1440px; margin: 0 auto;
+    padding: 0 40px 100px;
+  }
+
+  /* Summary block */
+  .reviews-summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 56px;
+    align-items: center;
+    padding: 40px 48px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line-soft);
+    border-radius: 22px;
+    margin-bottom: 44px;
+  }
+  .reviews-summary-main { text-align: center; min-width: 140px; }
+  .reviews-big-rating {
+    font-family: 'Instrument Serif', serif;
+    font-size: 88px;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+  .reviews-big-stars {
+    color: var(--accent);
+    letter-spacing: 3px;
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+  .reviews-big-count {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .reviews-bars {
+    display: flex; flex-direction: column;
+    gap: 10px;
+  }
+  .rev-bar-row {
+    display: grid;
+    grid-template-columns: 76px 1fr 40px;
+    gap: 14px;
+    align-items: center;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .rev-bar-label { letter-spacing: 0.02em; }
+  .rev-bar {
+    height: 6px;
+    background: var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .rev-bar-fill {
+    display: block; height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+  }
+  .rev-bar-count { text-align: right; font-variant-numeric: tabular-nums; }
+  .reviews-submit-btn { white-space: nowrap; }
+
+  /* Filters */
+  .reviews-filters {
+    display: flex; align-items: center;
+    gap: 14px; flex-wrap: wrap;
+    padding: 20px 0 16px;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    margin-bottom: 32px;
+  }
+  .filter-group {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .filter-group label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .filter-group select {
+    padding: 8px 28px 8px 12px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+  .filter-group select:hover { border-color: var(--ink); }
+  .filter-count {
+    margin-left: auto;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+
+  /* Grid + cards */
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .review {
+    display: flex; flex-direction: column;
+    background: var(--bg);
+    padding: 26px 26px 22px;
+    border-radius: 16px;
+    border: 1px solid var(--line-soft);
+    text-align: left;
+  }
+  .review-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .review-head-left { display: flex; align-items: center; gap: 12px; }
+  .review-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 550;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+  .review-name {
+    font-size: 14px; font-weight: 550;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .review-city {
+    font-size: 11px; color: var(--muted);
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+  }
+  .review-date {
+    font-size: 11px; color: var(--muted);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .review-stars-row {
+    color: var(--accent);
+    letter-spacing: 2px;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .review-text {
+    font-size: 14px; line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+  .review-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--line-soft);
+    font-size: 11px;
+    color: var(--muted);
+    gap: 10px;
+  }
+  .review-product {
+    font-weight: 550;
+    color: var(--ink-soft);
+    letter-spacing: 0.01em;
+    text-decoration: none;
+  }
+  .review-product:hover { color: var(--ink); }
+  .review-verified {
+    display: inline-flex; align-items: center; gap: 4px;
+    color: #2d8a4e;
+    font-weight: 500;
+  }
+  .reviews-more {
+    text-align: center;
+    margin-top: 40px;
+  }
+  .reviews-more .btn-ghost { padding: 13px 28px; font-size: 13px; }
+
+  .reviews-empty {
+    text-align: center;
+    padding: 80px 20px;
+  }
+  .reviews-empty h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px; font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  /* Review modal */
+  .review-modal {
+    position: fixed; inset: 0; z-index: 300;
+    pointer-events: none; visibility: hidden;
+  }
+  .review-modal[aria-hidden="false"] { pointer-events: auto; visibility: visible; }
+  .review-modal-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(.2,.8,.2,1);
+  }
+  .review-modal[aria-hidden="false"] .review-modal-overlay { opacity: 1; }
+  .review-modal-panel {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -44%);
+    width: min(520px, calc(100% - 32px));
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    background: var(--bg);
+    border-radius: 20px;
+    padding: 36px 36px 32px;
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(.2,.8,.2,1), opacity 0.35s;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+  }
+  .review-modal[aria-hidden="false"] .review-modal-panel {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  .review-modal-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 28px;
+    gap: 16px;
+  }
+  .review-modal-header h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 30px; letter-spacing: -0.02em;
+    font-weight: 400; line-height: 1.1;
+  }
+  .review-modal-close {
+    background: transparent; border: none;
+    width: 36px; height: 36px; border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink);
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .review-modal-close:hover { background: var(--line); }
+
+  .review-form-row { margin-bottom: 20px; }
+  .review-form label {
+    display: block;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .review-form input[type=text],
+  .review-form select,
+  .review-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .review-form input[type=text]:focus,
+  .review-form select:focus,
+  .review-form textarea:focus {
+    outline: none;
+    border-color: var(--ink);
+    background: var(--bg);
+  }
+  .review-form textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+  .review-star-input {
+    display: inline-flex; gap: 6px;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--line);
+  }
+  .review-star-input .star {
+    cursor: pointer;
+    transition: color 0.12s, transform 0.12s;
+    user-select: none;
+  }
+  .review-star-input .star.active,
+  .review-star-input .star.hovered { color: var(--accent); }
+  .review-star-input .star:active { transform: scale(0.88); }
+  .review-submit-btn { width: 100%; justify-content: center; margin-top: 8px; }
+  .review-form-error {
+    color: #c84a3a;
+    font-size: 12px;
+    margin-top: 6px;
+    display: none;
+  }
+  .review-form-error.show { display: block; }
+
+  /* Footer */
+  footer {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 80px 40px 32px;
+  }
+  .footer-inner { max-width: 1440px; margin: 0 auto; }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-brand h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px; letter-spacing: -0.02em;
+    margin-bottom: 16px; font-weight: 400;
+  }
+  .footer-brand h3 em { font-style: italic; }
+  .footer-brand p {
+    color: #a6a19a; max-width: 340px;
+    font-size: 14px; line-height: 1.6;
+  }
+  .footer-col h4 {
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.22em; margin-bottom: 20px;
+    color: #8a857e; font-weight: 500;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .footer-col a {
+    color: var(--bg); text-decoration: none;
+    font-size: 14px; opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  .footer-col a:hover { opacity: 1; }
+  .footer-bottom {
+    padding-top: 28px;
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: #8a857e;
+    letter-spacing: 0.04em;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .nav-links { display: none; }
+    .reviews-header { padding: 28px 28px 40px; }
+    .reviews-main { padding: 0 28px 72px; }
+    .reviews-summary { grid-template-columns: 1fr; gap: 32px; padding: 32px 24px; }
+    .reviews-submit-btn { width: 100%; }
+    .reviews-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .nav-inner { padding: 14px 20px; }
+    .breadcrumb { padding: 20px 20px 0; font-size: 11px; }
+    .reviews-header { padding: 20px 20px 32px; }
+    .reviews-header h1 { font-size: clamp(36px, 11vw, 54px); }
+    .reviews-header p { font-size: 14px; }
+    .reviews-main { padding: 0 20px 64px; }
+    .reviews-summary { padding: 28px 20px; margin-bottom: 28px; }
+    .reviews-big-rating { font-size: 68px; }
+    .reviews-filters { gap: 10px; flex-direction: column; align-items: stretch; }
+    .filter-group { width: 100%; justify-content: space-between; }
+    .filter-group select { flex: 1; min-width: 0; }
+    .filter-count { margin-left: 0; text-align: center; padding-top: 8px; }
+    .reviews-grid { grid-template-columns: 1fr; gap: 14px; }
+    .review { padding: 22px 22px 20px; }
+    .review-modal-panel {
+      padding: 28px 24px 24px;
+      width: calc(100% - 20px);
+      border-radius: 16px;
+      transform: translate(-50%, -50%);
+      max-height: calc(100vh - 20px);
+    }
+    .review-modal-header h2 { font-size: 24px; }
+    .review-star-input { font-size: 34px; gap: 8px; }
+    footer { padding: 56px 20px 24px; }
+    .footer-top { grid-template-columns: 1fr; gap: 32px; padding-bottom: 36px; }
+    .footer-bottom { flex-direction: column; gap: 10px; text-align: center; align-items: center; }
+    .announce { font-size: 10px; padding: 8px 14px; letter-spacing: 0.12em; }
+  }
+  @media (hover: none) and (pointer: coarse) {
+    .btn-dark:hover, .nav-icon-btn:hover { transform: none; box-shadow: none; background: var(--ink); }
+  }
+</style>
+</head>
+<body>
+
+<div class="announce">Livraison offerte · Satisfait ou remboursé 30 jours</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Maison <em>Artisa</em></a>
+    <ul class="nav-links">
+      <li><a href="index.html#products">Les soins</a></li>
+      <li><a href="index.html#process">L'atelier</a></li>
+      <li><a href="reviews.html">Avis</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="index.html#products" class="nav-icon-btn" aria-label="Voir les soins">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span id="cart-count" class="cart-count" hidden>0</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">Maison Artisa</a>
+  <span class="breadcrumb-sep">·</span>
+  <span>Avis clients</span>
+</div>
+
+<section class="reviews-header">
+  <span class="eyebrow">827 avis vérifiés</span>
+  <h1><em>4,9</em> sur 5.<br>Et 827 clients qui le disent.</h1>
+  <p>Chaque avis est laissé par un client qui a reçu son soin. Pas de modération au-delà de l'authentification d'achat.</p>
+</section>
+
+<main class="reviews-main">
+
+  <div class="reviews-summary">
+    <div class="reviews-summary-main">
+      <div class="reviews-big-rating">4,9</div>
+      <div class="reviews-big-stars">★★★★★</div>
+      <div class="reviews-big-count">827 avis vérifiés</div>
+    </div>
+    <div class="reviews-bars">
+      <div class="rev-bar-row"><span class="rev-bar-label">5 étoiles</span><span class="rev-bar"><span class="rev-bar-fill" style="width:92%"></span></span><span class="rev-bar-count">760</span></div>
+      <div class="rev-bar-row"><span class="rev-bar-label">4 étoiles</span><span class="rev-bar"><span class="rev-bar-fill" style="width:6.3%"></span></span><span class="rev-bar-count">52</span></div>
+      <div class="rev-bar-row"><span class="rev-bar-label">3 étoiles</span><span class="rev-bar"><span class="rev-bar-fill" style="width:1.3%"></span></span><span class="rev-bar-count">11</span></div>
+      <div class="rev-bar-row"><span class="rev-bar-label">2 étoiles</span><span class="rev-bar"><span class="rev-bar-fill" style="width:0.4%"></span></span><span class="rev-bar-count">3</span></div>
+      <div class="rev-bar-row"><span class="rev-bar-label">1 étoile</span><span class="rev-bar"><span class="rev-bar-fill" style="width:0.15%"></span></span><span class="rev-bar-count">1</span></div>
+    </div>
+    <button type="button" class="btn btn-dark reviews-submit-btn" id="open-review-modal">Laisser un avis</button>
+  </div>
+
+  <div class="reviews-filters">
+    <div class="filter-group">
+      <label for="filter-product">Soin</label>
+      <select id="filter-product">
+        <option value="">Tous les soins</option>
+        <option value="La Base">La Base</option>
+        <option value="Le Réveil">Le Réveil</option>
+        <option value="L'Élan">L'Élan</option>
+        <option value="La Pureté">La Pureté</option>
+        <option value="Le Grain">Le Grain</option>
+        <option value="La Correction">La Correction</option>
+        <option value="Le Regard">Le Regard</option>
+        <option value="Le Peeling">Le Peeling</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="filter-rating">Note</label>
+      <select id="filter-rating">
+        <option value="">Toutes</option>
+        <option value="5">5 étoiles</option>
+        <option value="4">4 étoiles</option>
+        <option value="3">3 étoiles</option>
+        <option value="2">2 étoiles</option>
+        <option value="1">1 étoile</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="filter-sort">Tri</label>
+      <select id="filter-sort">
+        <option value="recent">Plus récents</option>
+        <option value="old">Plus anciens</option>
+        <option value="best">Mieux notés</option>
+        <option value="worst">Moins bien notés</option>
+      </select>
+    </div>
+    <div class="filter-count" id="filter-count">827 avis</div>
+  </div>
+
+  <div class="reviews-grid" id="reviews-list"></div>
+
+  <div class="reviews-more" id="reviews-more">
+    <button type="button" class="btn btn-ghost" id="load-more-reviews">Voir plus d'avis</button>
+  </div>
+
+  <div class="reviews-empty" id="reviews-empty" hidden>
+    <h3>Aucun avis ne correspond à ces filtres.</h3>
+    <button type="button" class="btn btn-ghost" id="reset-filters">Réinitialiser les filtres</button>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Maison <em>Artisa</em></h3>
+        <p>Soins préparés sur commande, pour que les actifs arrivent vivants.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Les soins</h4>
+        <ul>
+          <li><a href="index.html#products">Tous les soins</a></li>
+          <li><a href="product.html?h=gel-hydratant-a-la-niacinamide">La Base</a></li>
+          <li><a href="product.html?h=boost-cafeine-gel-contour-des-yeux-1">Le Réveil</a></li>
+          <li><a href="product.html?h=gommage-volcanique-artisa">Le Grain</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>La maison</h4>
+        <ul>
+          <li><a href="index.html#process">L'atelier</a></li>
+          <li><a href="reviews.html">Avis</a></li>
+          <li><a href="#">Notre histoire</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Service</h4>
+        <ul>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Livraison & retours</a></li>
+          <li><a href="#">Satisfait ou remboursé</a></li>
+          <li><a href="#">Mentions légales</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Maison Artisa</div>
+      <div>Confidentialité · CGV · Cookies</div>
+    </div>
+  </div>
+</footer>
+
+<div class="review-modal" id="review-modal" aria-hidden="true" role="dialog" aria-labelledby="review-modal-title">
+  <div class="review-modal-overlay" data-review-close></div>
+  <div class="review-modal-panel">
+    <div class="review-modal-header">
+      <h2 id="review-modal-title">Laisser un avis</h2>
+      <button type="button" class="review-modal-close" data-review-close aria-label="Fermer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <form class="review-form" id="review-form" novalidate>
+      <div class="review-form-row">
+        <label>Votre note</label>
+        <div class="review-star-input" id="review-star-input" data-value="0" role="radiogroup" aria-label="Note">
+          <span class="star" data-star="1" role="radio" tabindex="0">★</span>
+          <span class="star" data-star="2" role="radio" tabindex="0">★</span>
+          <span class="star" data-star="3" role="radio" tabindex="0">★</span>
+          <span class="star" data-star="4" role="radio" tabindex="0">★</span>
+          <span class="star" data-star="5" role="radio" tabindex="0">★</span>
+        </div>
+        <div class="review-form-error" id="err-rating">Sélectionnez une note.</div>
+      </div>
+      <div class="review-form-row">
+        <label for="rev-name">Prénom</label>
+        <input type="text" id="rev-name" name="name" placeholder="Camille" maxlength="40" required>
+      </div>
+      <div class="review-form-row">
+        <label for="rev-product">Soin concerné</label>
+        <select id="rev-product" name="product">
+          <option value="La Base">La Base · Hydratation quotidienne</option>
+          <option value="Le Réveil">Le Réveil · Contour des yeux</option>
+          <option value="L'Élan">L'Élan · Booster revitalisant</option>
+          <option value="La Pureté">La Pureté · Gel nettoyant</option>
+          <option value="Le Grain">Le Grain · Gommage volcanique</option>
+          <option value="La Correction">La Correction · Anti-imperfections</option>
+          <option value="Le Regard">Le Regard · Contour multi-action</option>
+          <option value="Le Peeling">Le Peeling · Exfoliant AHA</option>
+        </select>
+      </div>
+      <div class="review-form-row">
+        <label for="rev-text">Votre avis</label>
+        <textarea id="rev-text" name="text" placeholder="Parlez-nous de votre expérience…" minlength="10" maxlength="500" required></textarea>
+        <div class="review-form-error" id="err-text">Votre avis doit contenir au moins 10 caractères.</div>
+      </div>
+      <button type="submit" class="btn btn-dark btn-lg review-submit-btn">Publier mon avis</button>
+    </form>
+  </div>
+</div>
+
+<script>
+(function() {
+  const REVIEWS_STORAGE_KEY = 'artisa_user_reviews';
+  const CART_STORAGE_KEY = 'artisa_cart_id';
+  const SHOPIFY_DOMAIN = 'artisa-8569.myshopify.com';
+  const SHOPIFY_TOKEN = '7b32bb350438ac296dba17705466a21c';
+  const API_VERSION = '2024-10';
+  const PAGE_SIZE = 12;
+  let reviewsShown = PAGE_SIZE;
+
+  const PRODUCT_HANDLES = {
+    'La Base': 'gel-hydratant-a-la-niacinamide',
+    'Le Réveil': 'boost-cafeine-gel-contour-des-yeux-1',
+    "L'Élan": 'gel-booster-revitalisant-ginkgo-the-vert',
+    'La Pureté': 'gel-purifiant-aloe-vera-extraits-de-fruits',
+    'Le Grain': 'gommage-volcanique-artisa',
+    'La Correction': 'soin-anti-acne',
+    'Le Regard': 'soin-contour-des-yeux-multi-action',
+    'Le Peeling': 'soin-exfoliant-aha-peeling-concentre'
+  };
+
+  const REVIEWS_DATA = [
+    { name:"Camille L.", city:"Paris", date:"2026-03-12", rating:5, product:"La Base", text:"Je ne pensais pas sentir la différence en si peu de temps. Deux semaines et ma peau est nette, plus lumineuse. Je rachète sans hésiter." },
+    { name:"Sarah M.", city:"Lyon", date:"2026-03-08", rating:5, product:"Le Réveil", text:"Le seul contour des yeux qui m'a vraiment fait de l'effet. J'ai les cernes très marqués, après 10 jours c'est visible. Conquise." },
+    { name:"Antoine D.", city:"Bordeaux", date:"2026-02-28", rating:5, product:"Le Peeling", text:"J'ai la peau sensible et j'évitais les AHA. Celui-ci ne tire pas, ne gratte pas, et mon grain de peau s'est affiné en une semaine. Top." },
+    { name:"Élodie R.", city:"Paris", date:"2026-02-20", rating:5, product:"La Base", text:"Texture légère, parfum discret, pénètre rapidement. Je l'utilise matin et soir depuis un mois, ma peau respire." },
+    { name:"Julie B.", city:"Marseille", date:"2026-02-14", rating:5, product:"Le Grain", text:"Utilisé deux fois par semaine. Peau douce comme après un soin en institut. Les grains sont fins, pas agressifs du tout." },
+    { name:"Thomas P.", city:"Lille", date:"2026-02-05", rating:5, product:"Le Réveil", text:"Premier soin que j'achète en cosmétique. Je l'ai pris sur conseil de ma copine, finalement je l'utilise tous les matins. Efficace." },
+    { name:"Marine T.", city:"Nantes", date:"2026-01-28", rating:5, product:"La Correction", text:"Je traîne des imperfections hormonales depuis mes 25 ans. En trois semaines d'utilisation ciblée, nette amélioration. Et zéro effet desséchant." },
+    { name:"Pauline V.", city:"Toulouse", date:"2026-01-20", rating:5, product:"L'Élan", text:"J'ai commencé à l'utiliser avant mes journées chargées. Je sens que ma peau tient mieux le coup face au stress et à la pollution." },
+    { name:"Chloé M.", city:"Paris", date:"2026-01-15", rating:4, product:"La Pureté", text:"Très bon nettoyant, mousse agréable, pas asséchant. Je retire une étoile parce que le flacon pompe est un peu ferme au début, mais ça se tasse." },
+    { name:"Lucas C.", city:"Strasbourg", date:"2026-01-08", rating:5, product:"Le Peeling", text:"J'ai des taches post-acné qui s'atténuent nettement. J'alterne 2-3 fois par semaine comme indiqué, aucune irritation." },
+    { name:"Margaux F.", city:"Paris", date:"2025-12-30", rating:5, product:"La Base", text:"Je cherchais un soin minimaliste mais efficace. Celui-ci tient ses promesses, et j'adore le fait qu'il soit fabriqué après commande." },
+    { name:"Eva K.", city:"Rennes", date:"2025-12-18", rating:5, product:"Le Regard", text:"Contour des yeux le plus complet que j'ai essayé. Cernes, ridules, poches — ça agit sur tout. J'en suis à mon deuxième flacon." },
+    { name:"Léa S.", city:"Lyon", date:"2025-12-10", rating:5, product:"Le Grain", text:"Exfoliant doux parfait pour peaux réactives. J'avais peur mais rien à signaler, juste une peau plus lisse au fil des semaines." },
+    { name:"Manon D.", city:"Paris", date:"2025-11-28", rating:5, product:"La Correction", text:"J'ai essayé Effaclar, La Roche-Posay, etc. — c'est le seul qui a fonctionné pour moi sans me décaper. Bluffée." },
+    { name:"Clément R.", city:"Aix-en-Provence", date:"2025-11-20", rating:5, product:"Le Réveil", text:"Je dors mal donc poches et cernes sont mon quotidien. Ce soin m'a littéralement changé le regard le matin. Indispensable." },
+    { name:"Juliette V.", city:"Paris", date:"2025-11-12", rating:4, product:"L'Élan", text:"Très bon sérum antioxydant, je sens que ma peau est plus lumineuse. Petit bémol : le flacon 30ml part vite si on l'utilise matin et soir." },
+    { name:"Inès M.", city:"Nantes", date:"2025-11-03", rating:5, product:"La Base", text:"Peau mixte à tendance grasse. Elle régule le sébum sans déshydrater. Fini les sessions de brillance à 15h." },
+    { name:"Laura P.", city:"Bordeaux", date:"2025-10-22", rating:5, product:"Le Peeling", text:"J'ai 42 ans, peau un peu ternie. Trois semaines de cure et le teint est beaucoup plus éclatant. Ma dermato a remarqué." },
+    { name:"Mathilde B.", city:"Paris", date:"2025-10-15", rating:5, product:"La Pureté", text:"Nettoie en profondeur sans jamais tirer. Parfait pour démaquiller le soir. Bonus : le parfum aloe est très frais." },
+    { name:"Anaïs T.", city:"Lyon", date:"2025-10-05", rating:3, product:"Le Regard", text:"Produit correct mais je n'ai pas vu les effets annoncés sur mes cernes très marqués. La texture est agréable. Je continue un mois supplémentaire avant de juger." },
+    { name:"Céline R.", city:"Strasbourg", date:"2025-09-28", rating:5, product:"La Base", text:"Ma dermato me l'a conseillé. Depuis, plus aucune rougeur, plus d'effet tiraillement en fin de journée. Je ne changerai plus." },
+    { name:"Adeline H.", city:"Toulouse", date:"2025-09-18", rating:5, product:"Le Grain", text:"Texture généreuse qui se transforme en crème douce. Une vraie expérience. Je le fais deux fois par semaine le dimanche soir." },
+    { name:"Sophie M.", city:"Paris", date:"2025-09-05", rating:5, product:"La Correction", text:"Mon fils de 17 ans l'utilise pour son acné d'ado. En un mois, ses joues ont désenflé et les marques s'estompent. Merci." },
+    { name:"Louise D.", city:"Marseille", date:"2025-08-28", rating:5, product:"L'Élan", text:"Ma peau réagit mal aux changements de saison. Ce booster a vraiment aidé ma barrière cutanée pendant la rentrée." },
+    { name:"Zoé F.", city:"Lille", date:"2025-08-15", rating:4, product:"Le Réveil", text:"Efficace sur les poches le matin. Un peu moins sur les cernes noires. J'aurais aimé un format plus grand." },
+    { name:"Maxime L.", city:"Rennes", date:"2025-07-30", rating:5, product:"La Base", text:"Je ne suis pas du genre à parler cosmétique. Mais ma compagne a volé mon flacon, j'ai dû en recommander. C'est dire." },
+    { name:"Charlotte G.", city:"Paris", date:"2025-07-18", rating:5, product:"Le Peeling", text:"J'ai une peau acnéique-grasse qui marque. Ce peeling AHA a rééquilibré mon teint en quelques semaines. Rituel deux fois par semaine adopté." },
+    { name:"Noémie B.", city:"Aix-en-Provence", date:"2025-07-02", rating:5, product:"La Pureté", text:"Je rebondis souvent entre différents nettoyants. Depuis que j'ai celui-ci, j'ai arrêté de chercher." },
+    { name:"Marie F.", city:"Paris", date:"2025-06-20", rating:3, product:"Le Grain", text:"Bon produit, mais j'ai la peau mixte à tendance grasse et j'aurais aimé quelque chose de plus exfoliant pour mes zones à imperfections. Pour peaux sensibles sûrement parfait." },
+    { name:"Emma R.", city:"Bordeaux", date:"2025-05-28", rating:5, product:"Le Regard", text:"Cernes bleutés héréditaires. Après 3 semaines je vois une vraie différence. J'applique matin et soir et je commande déjà le suivant." }
+  ];
+
+  const filters = { product: '', rating: '', sort: 'recent' };
+
+  function escapeHtml(s) {
+    const div = document.createElement('div');
+    div.textContent = s || '';
+    return div.innerHTML;
+  }
+  function formatDate(iso) {
+    try {
+      const d = new Date(iso);
+      return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    } catch (_) { return iso; }
+  }
+  function initials(name) {
+    return name.split(/\s+/).map(w => w[0] || '').join('').slice(0, 2).toUpperCase();
+  }
+
+  function loadUserReviews() {
+    try {
+      const raw = localStorage.getItem(REVIEWS_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (_) { return []; }
+  }
+  function saveUserReview(review) {
+    const list = loadUserReviews();
+    list.unshift(review);
+    try { localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(list)); } catch (_) {}
+  }
+  function getAllReviews() {
+    return [...loadUserReviews(), ...REVIEWS_DATA];
+  }
+
+  function applyFilters(list) {
+    let out = list.slice();
+    if (filters.product) out = out.filter(r => r.product === filters.product);
+    if (filters.rating) out = out.filter(r => String(r.rating) === filters.rating);
+    switch (filters.sort) {
+      case 'old': out.sort((a, b) => new Date(a.date) - new Date(b.date)); break;
+      case 'best': out.sort((a, b) => b.rating - a.rating || new Date(b.date) - new Date(a.date)); break;
+      case 'worst': out.sort((a, b) => a.rating - b.rating || new Date(b.date) - new Date(a.date)); break;
+      case 'recent':
+      default: out.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+    return out;
+  }
+
+  function renderReviews() {
+    const container = document.getElementById('reviews-list');
+    const loadMoreWrap = document.getElementById('reviews-more');
+    const loadMoreBtn = document.getElementById('load-more-reviews');
+    const emptyEl = document.getElementById('reviews-empty');
+    const filterCount = document.getElementById('filter-count');
+    if (!container) return;
+
+    const all = getAllReviews();
+    const filtered = applyFilters(all);
+    if (filterCount) {
+      filterCount.textContent = filtered.length === 0
+        ? 'Aucun avis'
+        : (filtered.length === 1 ? '1 avis' : `${filtered.length} avis`);
+    }
+
+    if (filtered.length === 0) {
+      container.innerHTML = '';
+      loadMoreWrap.hidden = true;
+      emptyEl.hidden = false;
+      return;
+    }
+    emptyEl.hidden = true;
+
+    const toRender = filtered.slice(0, reviewsShown);
+    container.innerHTML = toRender.map(r => {
+      const starsFull = '★'.repeat(r.rating);
+      const starsEmpty = '<span style="color:var(--line)">' + '★'.repeat(5 - r.rating) + '</span>';
+      const handle = PRODUCT_HANDLES[r.product];
+      const productLink = handle
+        ? `<a class="review-product" href="product.html?h=${encodeURIComponent(handle)}">${escapeHtml(r.product)}</a>`
+        : `<span class="review-product">${escapeHtml(r.product)}</span>`;
+      return `
+        <article class="review">
+          <div class="review-head">
+            <div class="review-head-left">
+              <div class="review-avatar">${escapeHtml(initials(r.name))}</div>
+              <div>
+                <div class="review-name">${escapeHtml(r.name)}</div>
+                ${r.city ? `<div class="review-city">${escapeHtml(r.city)}</div>` : ''}
+              </div>
+            </div>
+            <div class="review-date">${formatDate(r.date)}</div>
+          </div>
+          <div class="review-stars-row">${starsFull}${starsEmpty}</div>
+          <div class="review-text">${escapeHtml(r.text)}</div>
+          <div class="review-foot">
+            ${productLink}
+            ${r.verified !== false ? `<span class="review-verified"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Achat vérifié</span>` : '<span>En attente</span>'}
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    const remaining = filtered.length - reviewsShown;
+    if (remaining <= 0) {
+      loadMoreWrap.hidden = true;
+    } else {
+      loadMoreWrap.hidden = false;
+      loadMoreBtn.textContent = `Voir plus d'avis (${remaining} restants)`;
+    }
+  }
+
+  function openModal() {
+    document.getElementById('review-modal').setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('rev-name')?.focus(), 200);
+  }
+  function closeModal() {
+    document.getElementById('review-modal').setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function wireStarInput() {
+    const starInput = document.getElementById('review-star-input');
+    const stars = Array.from(starInput.querySelectorAll('.star'));
+    function paintActive() {
+      const v = parseInt(starInput.dataset.value || '0', 10);
+      stars.forEach((s, i) => s.classList.toggle('active', i < v));
+    }
+    function paintHover(upTo) {
+      stars.forEach((s, i) => s.classList.toggle('hovered', i < upTo));
+    }
+    stars.forEach((s, i) => {
+      s.addEventListener('mouseenter', () => paintHover(i + 1));
+      s.addEventListener('click', () => { starInput.dataset.value = String(i + 1); paintActive(); });
+      s.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          starInput.dataset.value = String(i + 1);
+          paintActive();
+        }
+      });
+    });
+    starInput.addEventListener('mouseleave', () => paintHover(0));
+  }
+
+  function submitReview(e) {
+    e.preventDefault();
+    const form = document.getElementById('review-form');
+    const starInput = document.getElementById('review-star-input');
+    const errRating = document.getElementById('err-rating');
+    const errText = document.getElementById('err-text');
+    errRating.classList.remove('show');
+    errText.classList.remove('show');
+    const rating = parseInt(starInput.dataset.value || '0', 10);
+    const name = form.elements.name.value.trim();
+    const product = form.elements.product.value;
+    const text = form.elements.text.value.trim();
+    let valid = true;
+    if (!rating) { errRating.classList.add('show'); valid = false; }
+    if (text.length < 10) { errText.classList.add('show'); valid = false; }
+    if (!name) valid = false;
+    if (!valid) return;
+
+    const displayName = name.length > 1
+      ? (name.charAt(0).toUpperCase() + name.slice(1))
+      : name.toUpperCase();
+
+    saveUserReview({
+      name: displayName,
+      date: new Date().toISOString().slice(0, 10),
+      rating, product, text,
+      verified: false,
+      user: true
+    });
+
+    form.reset();
+    starInput.dataset.value = '0';
+    starInput.querySelectorAll('.star').forEach(s => {
+      s.classList.remove('active');
+      s.classList.remove('hovered');
+    });
+    closeModal();
+    renderReviews();
+    setTimeout(() => {
+      document.getElementById('reviews-list')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 250);
+  }
+
+  function wireFilters() {
+    const p = document.getElementById('filter-product');
+    const r = document.getElementById('filter-rating');
+    const s = document.getElementById('filter-sort');
+    p.addEventListener('change', () => { filters.product = p.value; reviewsShown = PAGE_SIZE; renderReviews(); });
+    r.addEventListener('change', () => { filters.rating = r.value; reviewsShown = PAGE_SIZE; renderReviews(); });
+    s.addEventListener('change', () => { filters.sort = s.value; reviewsShown = PAGE_SIZE; renderReviews(); });
+    document.getElementById('reset-filters')?.addEventListener('click', () => {
+      filters.product = ''; filters.rating = ''; filters.sort = 'recent';
+      p.value = ''; r.value = ''; s.value = 'recent';
+      reviewsShown = PAGE_SIZE;
+      renderReviews();
+    });
+  }
+
+  // --- Cart count (read from Shopify cart if saved) ---
+  async function updateCartCount() {
+    const id = localStorage.getItem(CART_STORAGE_KEY);
+    if (!id) return;
+    try {
+      const res = await fetch(`https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Storefront-Access-Token': SHOPIFY_TOKEN,
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          query: `query($id: ID!) { cart(id: $id) { totalQuantity } }`,
+          variables: { id }
+        })
+      });
+      const data = await res.json();
+      const count = data?.data?.cart?.totalQuantity || 0;
+      const badge = document.getElementById('cart-count');
+      if (badge) {
+        badge.textContent = count;
+        badge.hidden = count === 0;
+      }
+    } catch (_) {}
+  }
+
+  function init() {
+    renderReviews();
+    wireStarInput();
+    wireFilters();
+    document.getElementById('open-review-modal')?.addEventListener('click', openModal);
+    document.querySelectorAll('[data-review-close]').forEach(el => el.addEventListener('click', closeModal));
+    document.getElementById('review-form')?.addEventListener('submit', submitReview);
+    document.getElementById('load-more-reviews')?.addEventListener('click', () => {
+      reviewsShown += PAGE_SIZE;
+      renderReviews();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    updateCartCount();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+</body>
+</html>
