@@ -3207,7 +3207,7 @@
   </div>
 </div>
 
-<script src="reviews-data.js"></script>
+<!-- Landing teaser only — full dataset loaded on reviews.html -->
 
 <script>
 (function() {
@@ -3215,7 +3215,21 @@
   const REVIEWS_PAGE_SIZE = 3;
   let reviewsShown = REVIEWS_PAGE_SIZE;
 
-  const REVIEWS_DATA = window.REVIEWS_DATA || [];
+  // Teasers inline pour la landing (6 avis). Full dataset 827 sur reviews.html.
+  const REVIEWS_DATA = [
+    { name: "Camille L.", city: "Paris", date: "2026-04-14", rating: 5, product: "La Base",
+      text: "Texture légère qui pénètre vite, aucune sensation grasse. Ma peau est plus unie en 2 semaines, je ne lâche plus." },
+    { name: "Sarah M.", city: "Lyon", date: "2026-04-10", rating: 5, product: "Le Réveil",
+      text: "J'ai des cernes héréditaires, après 3 semaines je vois une vraie différence. Je ne le lâche plus." },
+    { name: "Antoine D.", city: "Bordeaux", date: "2026-04-02", rating: 5, product: "Le Peeling",
+      text: "J'ai la peau sensible et j'évitais les AHA. Celui-ci ne tire pas, ne gratte pas, et mon grain de peau s'est affiné en une semaine. Top." },
+    { name: "Marine T.", city: "Nantes", date: "2026-03-28", rating: 5, product: "La Correction",
+      text: "Je traîne des imperfections hormonales depuis mes 25 ans. En trois semaines d'utilisation ciblée, nette amélioration. Et zéro effet desséchant." },
+    { name: "Élodie R.", date: "2026-03-20", rating: 5, product: "Le Grain",
+      text: "Utilisé deux fois par semaine. Peau douce comme après un soin en institut. Les grains sont fins, pas agressifs du tout." },
+    { name: "Thomas P.", city: "Lille", date: "2026-03-12", rating: 5, product: "L'Élan",
+      text: "Je l'utilise en boost avant mes semaines chargées. Ma peau tient mieux la fatigue." }
+  ];
 
   function escapeHtml(s) {
     const div = document.createElement('div');
