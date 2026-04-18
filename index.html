@@ -938,121 +938,158 @@
     aspect-ratio: 4/5;
     border-radius: 20px;
     overflow: hidden;
-    background: #333;
+    background: var(--bg-soft);
     position: relative;
   }
-  .revolution-visual img { width: 100%; height: 100%; object-fit: cover; }
-  .revolution-visual .floating-stat {
-    position: absolute;
-    bottom: 28px; left: 28px; right: 28px;
-    padding: 22px 26px;
-    background: rgba(244,239,232,0.97);
-    color: var(--ink);
-    border-radius: 16px;
-    backdrop-filter: blur(14px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.22);
+  /* Revolution as an editorial data-viz card (replaces old image) */
+  .revolution-chart {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 36px 36px;
+    border: 1px solid var(--line-soft);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.03);
   }
+  .chart-head { margin-bottom: 4px; }
   /* ==========================================================
-     EFFICACY CHART — SVG décroissance actifs dans le temps
+     EFFICACY CHART V2 — Full-size editorial data-viz card
+     Remplace l'image dans .revolution-visual
      ========================================================== */
-  .efficacy-chart { padding: 20px 24px 18px; }
-  .chart-header { margin-bottom: 10px; }
   .chart-eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.22em;
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--muted);
     font-weight: 500;
+    margin-bottom: 14px;
   }
-  .chart-body {
-    position: relative;
-    width: 100%;
+  .chart-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 2.6vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    color: var(--ink);
+    margin: 0 0 24px;
   }
+  .chart-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
   .chart-svg {
     width: 100%;
     height: auto;
     display: block;
     overflow: visible;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: 280px;
   }
+
   .chart-tick {
     font-size: 11px;
     fill: var(--muted);
     font-family: 'Inter', sans-serif;
     letter-spacing: 0.02em;
   }
+  .chart-pt-label {
+    font-family: 'Instrument Serif', serif;
+    font-size: 15px;
+    fill: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .chart-pt-label-muted { fill: var(--ink-soft); }
+  .chart-pt-sublabel {
+    font-size: 10px;
+    fill: var(--muted);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.02em;
+  }
 
-  /* Draw-in animation on curve */
+  /* Legend */
+  .chart-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px 0 16px;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    margin: 20px 0 18px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 0.005em;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .legend-dot-accent { background: var(--accent); }
+  .legend-dot-muted { background: var(--muted); }
+
+  /* Scientific caption quote */
+  .chart-quote {
+    font-family: 'Instrument Serif', serif;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    font-style: italic;
+    letter-spacing: -0.005em;
+    margin: 0;
+    padding: 0;
+    max-width: 42ch;
+  }
+
+  /* Animations entrée */
   .chart-curve {
-    stroke-dasharray: 620;
-    stroke-dashoffset: 620;
-    animation: chart-draw 1.4s cubic-bezier(.2,.8,.2,1) 0.25s forwards;
+    stroke-dasharray: 800;
+    stroke-dashoffset: 800;
+    animation: chart-draw 1.6s cubic-bezier(.2,.8,.2,1) 0.3s forwards;
   }
   .chart-area {
     opacity: 0;
-    animation: chart-fade 0.7s ease 1.15s forwards;
+    animation: chart-fade 0.8s ease 1.3s forwards;
   }
-  .chart-point {
+  .chart-point, .chart-pt-label, .chart-pt-sublabel {
     opacity: 0;
-    transform-origin: center;
   }
-  .chart-point-artisa { animation: chart-pop 0.5s cubic-bezier(.34,1.56,.64,1) 0.35s forwards; }
-  .chart-point-trad { animation: chart-pop 0.5s cubic-bezier(.34,1.56,.64,1) 1.25s forwards; }
+  .chart-point-artisa { animation: chart-pop 0.5s cubic-bezier(.34,1.56,.64,1) 0.5s forwards; }
+  .chart-point-trad { animation: chart-pop 0.5s cubic-bezier(.34,1.56,.64,1) 1.5s forwards; }
+
+  text.chart-pt-label,
+  text.chart-pt-sublabel {
+    animation: chart-fade 0.5s ease forwards;
+  }
+  .chart-svg g.chart-point-artisa + text.chart-pt-label,
+  .chart-svg g.chart-point-artisa ~ text.chart-pt-sublabel:first-of-type {
+    animation-delay: 0.7s;
+  }
+  .chart-svg g.chart-point-trad + text.chart-pt-label,
+  .chart-svg g.chart-point-trad ~ text.chart-pt-sublabel {
+    animation-delay: 1.7s;
+  }
 
   @keyframes chart-draw { to { stroke-dashoffset: 0; } }
   @keyframes chart-fade { to { opacity: 1; } }
   @keyframes chart-pop {
-    0% { opacity: 0; transform: scale(0.4); }
-    60% { opacity: 1; transform: scale(1.12); }
+    0% { opacity: 0; transform: scale(0.3); }
+    60% { opacity: 1; transform: scale(1.15); }
     100% { opacity: 1; transform: scale(1); }
   }
 
-  /* HTML overlay labels */
-  .chart-label {
-    position: absolute;
-    display: flex;
-    align-items: flex-start;
-    font-size: 12px;
-    line-height: 1.15;
-    pointer-events: none;
-    opacity: 0;
-    animation: chart-slide 0.5s cubic-bezier(.2,.8,.2,1) forwards;
-  }
-  .chart-label .label-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: 16px;
-    letter-spacing: -0.005em;
-    color: var(--ink);
-    line-height: 1.05;
-  }
-  .chart-label .label-sub {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 3px;
-    letter-spacing: 0.005em;
-  }
-  .chart-label-artisa {
-    top: 2%;
-    left: 14%;
-    animation-delay: 0.6s;
-  }
-  .chart-label-trad {
-    top: 42%;
-    left: 66%;
-    animation-delay: 1.4s;
-  }
-  .chart-label-trad .label-title { color: var(--ink-soft); }
-
-  @keyframes chart-slide {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .chart-curve, .chart-area, .chart-point, .chart-label {
+    .chart-curve, .chart-area, .chart-point,
+    text.chart-pt-label, text.chart-pt-sublabel {
       animation: none;
       opacity: 1;
       stroke-dashoffset: 0;
-      transform: none;
     }
   }
 
@@ -1535,10 +1572,14 @@
     .revolution-outcome { padding: 20px; margin-top: 0; }
     .outcome-mark { font-size: 44px; }
     .outcome-text { font-size: 22px; }
-    .revolution-visual .floating-stat { bottom: 20px; left: 20px; right: 20px; padding: 16px 18px 14px; }
-    .chart-label .label-title { font-size: 14px; }
-    .chart-label .label-sub { font-size: 10px; }
+    .revolution-chart { padding: 28px 24px 24px; }
+    .chart-title { font-size: clamp(24px, 5vw, 32px); margin-bottom: 18px; }
     .chart-tick { font-size: 10px; }
+    .chart-pt-label { font-size: 13px; }
+    .chart-pt-sublabel { font-size: 9px; }
+    .chart-legend { padding: 14px 0 12px; margin: 14px 0 12px; }
+    .legend-item { font-size: 12px; }
+    .chart-quote { font-size: 13px; }
 
     /* Process */
     .process-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
@@ -1700,11 +1741,15 @@
     .marquee-track { font-size: 15px; gap: 28px; }
     .marquee-track span { gap: 28px; }
 
-    .chart-label .label-title { font-size: 12px; }
-    .chart-label .label-sub { font-size: 9px; }
-    .efficacy-chart { padding: 14px 16px 12px; }
-    .chart-header { margin-bottom: 6px; }
-    .chart-eyebrow { font-size: 9px; letter-spacing: 0.18em; }
+    .revolution-chart { padding: 22px 20px 20px; }
+    .chart-eyebrow { font-size: 9px; letter-spacing: 0.18em; margin-bottom: 10px; }
+    .chart-title { font-size: clamp(22px, 6.5vw, 28px); margin-bottom: 14px; }
+    .chart-tick { font-size: 9px; }
+    .chart-pt-label { font-size: 12px; }
+    .chart-pt-sublabel { font-size: 8px; }
+    .chart-legend { padding: 12px 0 10px; margin: 10px 0; gap: 6px; }
+    .legend-item { font-size: 11px; }
+    .chart-quote { font-size: 12px; max-width: none; }
     .compare-stat { font-size: 38px; }
     .outcome-text { font-size: 18px; }
 
@@ -2914,74 +2959,79 @@
 <!-- REVOLUTION -->
 <section class="revolution" id="revolution">
   <div class="section-inner">
-    <div class="revolution-visual">
-      <img src="revolution-visual.jpg" alt="Femme appliquant un soin Artisa, peau nette et lumineuse">
-      <div class="floating-stat efficacy-chart">
-        <div class="chart-header">
-          <span class="chart-eyebrow">Efficacité des actifs dans le temps</span>
+    <div class="revolution-visual revolution-chart">
+      <div class="chart-head">
+        <span class="chart-eyebrow">Efficacité des actifs dans le temps</span>
+        <h3 class="chart-title">
+          100% au départ.<br>
+          <em>~45%</em> après un an.
+        </h3>
+      </div>
+
+      <svg class="chart-svg" viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="chart-title-a11y chart-desc-a11y" preserveAspectRatio="xMidYMid meet">
+        <title id="chart-title-a11y">Dégradation de l'efficacité des actifs cosmétiques dans le temps</title>
+        <desc id="chart-desc-a11y">Un cosmétique conserve 100% de son efficacité au jour de sa fabrication puis se dégrade progressivement. Chez Maison Artisa, vous achetez au jour 0 avec 100% d'efficacité. Un cosmétique traditionnel en rayon a généralement 10 à 14 mois de stockage, soit environ 42% d'efficacité restante.</desc>
+
+        <defs>
+          <linearGradient id="chart-fill-v2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Y tick labels -->
+        <text x="52" y="46" text-anchor="end" class="chart-tick">100%</text>
+        <text x="52" y="148" text-anchor="end" class="chart-tick">50%</text>
+        <text x="52" y="250" text-anchor="end" class="chart-tick">0%</text>
+
+        <!-- 50% reference line -->
+        <line x1="68" y1="144" x2="530" y2="144" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 6" opacity="0.6"/>
+
+        <!-- X tick labels -->
+        <text x="68" y="278" text-anchor="middle" class="chart-tick">0</text>
+        <text x="222" y="278" text-anchor="middle" class="chart-tick">6 mois</text>
+        <text x="376" y="278" text-anchor="middle" class="chart-tick">12 mois</text>
+        <text x="530" y="278" text-anchor="middle" class="chart-tick">18 mois</text>
+
+        <!-- Filled area under curve -->
+        <path class="chart-area" d="M 68 42 C 200 42, 240 150, 530 185 L 530 250 L 68 250 Z" fill="url(#chart-fill-v2)"/>
+
+        <!-- Main curve : decay from 100% to ~28% over 18 months -->
+        <path class="chart-curve" d="M 68 42 C 200 42, 240 150, 530 185" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Artisa point (t=0, 100%) -->
+        <g class="chart-point chart-point-artisa">
+          <circle cx="68" cy="42" r="22" fill="var(--accent)" opacity="0.12"/>
+          <circle cx="68" cy="42" r="9" fill="var(--accent)"/>
+          <circle cx="68" cy="42" r="3.5" fill="#fff"/>
+        </g>
+        <text x="82" y="36" class="chart-pt-label">Jour 0</text>
+        <text x="82" y="52" class="chart-pt-sublabel">Chez Artisa</text>
+
+        <!-- Traditional point (t≈12, ~42%) -->
+        <g class="chart-point chart-point-trad">
+          <circle cx="395" cy="165" r="18" fill="var(--muted)" opacity="0.15"/>
+          <circle cx="395" cy="165" r="7" fill="var(--muted)"/>
+          <circle cx="395" cy="165" r="2.5" fill="#fff"/>
+        </g>
+        <text x="410" y="160" class="chart-pt-label chart-pt-label-muted">12 mois</text>
+        <text x="410" y="175" class="chart-pt-sublabel">en rayon magasin</text>
+      </svg>
+
+      <div class="chart-legend">
+        <div class="legend-item">
+          <span class="legend-dot legend-dot-accent"></span>
+          <span class="legend-text">Chez Artisa · 100% d'efficacité</span>
         </div>
-        <div class="chart-body">
-          <svg class="chart-svg" viewBox="0 0 560 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="chart-title chart-desc" preserveAspectRatio="xMidYMid meet">
-            <title id="chart-title">Efficacité des actifs cosmétiques selon la durée de stockage</title>
-            <desc id="chart-desc">Un cosmétique perd progressivement son efficacité à partir de sa fabrication. À 100% chez Maison Artisa (jour zéro, vous achetez directement après fabrication). Environ 45% d'efficacité après 12 mois de stockage, comme c'est le cas pour un cosmétique traditionnel en rayon.</desc>
-
-            <defs>
-              <linearGradient id="chart-fill-gradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.20"/>
-                <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-
-            <!-- Y tick labels -->
-            <text x="48" y="34" text-anchor="end" class="chart-tick">100%</text>
-            <text x="48" y="108" text-anchor="end" class="chart-tick">50%</text>
-            <text x="48" y="182" text-anchor="end" class="chart-tick">0%</text>
-
-            <!-- Subtle 50% reference line -->
-            <line x1="60" y1="105" x2="530" y2="105" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 5" opacity="0.55"/>
-
-            <!-- X tick labels -->
-            <text x="60" y="208" text-anchor="middle" class="chart-tick">0</text>
-            <text x="217" y="208" text-anchor="middle" class="chart-tick">6 mois</text>
-            <text x="373" y="208" text-anchor="middle" class="chart-tick">12 mois</text>
-            <text x="530" y="208" text-anchor="middle" class="chart-tick">18 mois</text>
-
-            <!-- Filled area under curve -->
-            <path class="chart-area" d="M 60 30 C 180 30, 210 110, 530 138 L 530 180 L 60 180 Z" fill="url(#chart-fill-gradient)"/>
-
-            <!-- Main curve : decay from 100% to ~28% over 18 months -->
-            <path class="chart-curve" d="M 60 30 C 180 30, 210 110, 530 138" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/>
-
-            <!-- Artisa point (t=0, 100%) -->
-            <g class="chart-point chart-point-artisa">
-              <circle cx="60" cy="30" r="18" fill="var(--accent)" opacity="0.12"/>
-              <circle cx="60" cy="30" r="7" fill="var(--accent)"/>
-              <circle cx="60" cy="30" r="3" fill="#fff"/>
-            </g>
-
-            <!-- Traditional point (t≈12, ~42%) -->
-            <g class="chart-point chart-point-trad">
-              <circle cx="380" cy="118" r="14" fill="var(--muted)" opacity="0.15"/>
-              <circle cx="380" cy="118" r="6" fill="var(--muted)"/>
-              <circle cx="380" cy="118" r="2" fill="#fff"/>
-            </g>
-          </svg>
-
-          <!-- HTML overlay labels -->
-          <div class="chart-label chart-label-artisa">
-            <div class="label-text">
-              <div class="label-title">Chez Artisa</div>
-              <div class="label-sub">vous achetez ici</div>
-            </div>
-          </div>
-          <div class="chart-label chart-label-trad">
-            <div class="label-text">
-              <div class="label-title">Cosmétique traditionnel</div>
-              <div class="label-sub">après 10-14 mois en stock</div>
-            </div>
-          </div>
+        <div class="legend-item">
+          <span class="legend-dot legend-dot-muted"></span>
+          <span class="legend-text">Cosmétique traditionnel · ~42%</span>
         </div>
       </div>
+
+      <blockquote class="chart-quote">
+        « Un cosmétique perd en moyenne la moitié de ses actifs en 12 mois de stockage. Chez Maison Artisa, vous achetez au jour zéro. »
+      </blockquote>
     </div>
 
     <div>
