@@ -1353,6 +1353,8 @@
     font-size: 12px;
     color: #a6a19a;
   }
+  .footer-bottom a { color: #a6a19a; text-decoration: none; transition: color 0.2s; }
+  .footer-bottom a:hover { color: var(--bg); }
   @media (max-width: 600px) {
     .footer-certs { flex-direction: column; text-align: center; gap: 14px; padding: 22px 0; }
     .footer-ecocert-logo { width: 76px; }
@@ -3119,11 +3121,10 @@
       <div class="footer-col">
         <h4>Aide</h4>
         <ul>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Expédition</a></li>
-          <li><a href="#">Retours</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Mentions légales</a></li>
+          <li><a href="mailto:contact@artisacosmetique.com">Contact</a></li>
+          <li><a href="cgv.html">Expédition & retours</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
         </ul>
       </div>
     </div>
@@ -3136,7 +3137,11 @@
     </div>
     <div class="footer-bottom">
       <div>© 2026 Maison Artisa</div>
-      <div>Politique de confidentialité · CGV · Cookies</div>
+      <div>
+        <a href="confidentialite.html">Politique de confidentialité</a> ·
+        <a href="cgv.html">CGV</a> ·
+        <a href="cookies.html">Cookies</a>
+      </div>
     </div>
   </div>
 </footer>

@@ -606,6 +606,8 @@
     transition: opacity 0.2s;
   }
   .footer-col a:hover { opacity: 1; }
+  .footer-bottom a { color: #8a857e; text-decoration: none; transition: color 0.2s; }
+  .footer-bottom a:hover { color: var(--bg); }
   .footer-bottom {
     padding-top: 28px;
     display: flex; justify-content: space-between;
@@ -795,15 +797,19 @@
       <div class="footer-col">
         <h4>Service</h4>
         <ul>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Livraison & retours</a></li>
-          <li><a href="#">Mentions légales</a></li>
+          <li><a href="mailto:contact@artisacosmetique.com">Contact</a></li>
+          <li><a href="cgv.html">Livraison & retours</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <div>© 2026 Maison Artisa</div>
-      <div>Confidentialité · CGV · Cookies</div>
+      <div>
+        <a href="confidentialite.html">Confidentialité</a> ·
+        <a href="cgv.html">CGV</a> ·
+        <a href="cookies.html">Cookies</a>
+      </div>
     </div>
   </div>
 </footer>
