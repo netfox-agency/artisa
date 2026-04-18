@@ -953,65 +953,29 @@
     box-shadow: 0 20px 40px rgba(0,0,0,0.22);
   }
   /* ==========================================================
-     EFFICACY COMPARE V6 — Minimal editorial. Juste les chiffres.
-     Label en caps, chiffre énorme en Instrument Serif, barre fine.
-     Séparateur entre les deux blocs. Zéro déco, zéro overlap.
+     STAT CARD — Retour au simple: un gros chiffre, une légende.
+     Pas de graphique, pas d'animation complexe, zéro overlap.
      ========================================================== */
-  .efficacy-spark {
-    padding: 24px 26px !important;
+  .stat-simple {
+    padding: 26px 30px !important;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 8px;
   }
-  .ec-row { display: flex; flex-direction: column; gap: 8px; }
-  .ec-divider {
-    height: 1px;
-    background: var(--line-soft);
-    margin: 0;
-  }
-  .ec-label {
-    font-size: 10.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
-  }
-  .ec-value {
+  .stat-num {
     font-family: 'Instrument Serif', serif;
-    font-size: 40px;
-    line-height: 0.95;
-    color: var(--ink);
-    letter-spacing: -0.025em;
+    font-size: 64px;
+    line-height: 1;
+    color: #b93030;
+    font-style: italic;
+    letter-spacing: -0.02em;
     font-weight: 400;
   }
-  .ec-value-drop { color: #b93030; font-style: italic; }
-  .ec-bar {
-    position: relative;
-    height: 4px;
-    background: var(--line-soft);
-    border-radius: 2px;
-    overflow: hidden;
-    margin-top: 4px;
-  }
-  .ec-fill {
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 0;
-    border-radius: 2px;
-    transition: width 1.2s cubic-bezier(.2,.8,.2,1);
-  }
-  .ec-fill-artisa { background: var(--accent); transition-delay: 0.2s; }
-  .ec-fill-standard {
-    background: linear-gradient(90deg, var(--accent) 0%, #b93030 100%);
-    transition-delay: 0.9s;
-  }
-  .efficacy-spark.in-view .ec-fill-artisa { width: var(--target-artisa, 100%); }
-  .efficacy-spark.in-view .ec-fill-standard { width: var(--target-standard, 50%); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .ec-fill { transition: none; }
-    .ec-fill-artisa { width: var(--target-artisa, 100%); }
-    .ec-fill-standard { width: var(--target-standard, 50%); }
+  .stat-caption {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--muted);
+    max-width: 30ch;
   }
 
   .revolution h2 {
@@ -1494,9 +1458,9 @@
     .outcome-mark { font-size: 44px; }
     .outcome-text { font-size: 22px; }
     .revolution-visual .floating-stat { bottom: 20px; left: 20px; right: 20px; }
-    .efficacy-spark { padding: 20px 22px !important; gap: 16px; }
-    .ec-label { font-size: 9.5px; letter-spacing: 0.12em; }
-    .ec-value { font-size: 34px; }
+    .stat-simple { padding: 22px 24px !important; gap: 6px; }
+    .stat-num { font-size: 52px; }
+    .stat-caption { font-size: 13px; }
 
     /* Process */
     .process-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
@@ -1658,10 +1622,9 @@
     .marquee-track { font-size: 15px; gap: 28px; }
     .marquee-track span { gap: 28px; }
 
-    .efficacy-spark { padding: 18px 20px !important; gap: 14px; }
-    .ec-label { font-size: 9px; letter-spacing: 0.1em; }
-    .ec-value { font-size: 30px; }
-    .ec-bar { height: 4px; }
+    .stat-simple { padding: 18px 20px !important; gap: 5px; }
+    .stat-num { font-size: 44px; }
+    .stat-caption { font-size: 12px; }
     .compare-stat { font-size: 38px; }
     .outcome-text { font-size: 18px; }
 
@@ -2873,18 +2836,9 @@
   <div class="section-inner">
     <div class="revolution-visual">
       <img src="revolution-visual.jpg" alt="Femme appliquant un soin Artisa, peau nette et lumineuse">
-      <div class="floating-stat efficacy-spark" style="--target-artisa: 100%; --target-standard: 50%;" aria-label="Artisa conserve 100% d'efficacité le jour de fabrication. Un cosmétique standard en perd la moitié après 6 mois en stock.">
-        <div class="ec-row">
-          <div class="ec-label">Artisa · jour de fabrication</div>
-          <div class="ec-value">100%</div>
-          <div class="ec-bar"><div class="ec-fill ec-fill-artisa"></div></div>
-        </div>
-        <div class="ec-divider"></div>
-        <div class="ec-row">
-          <div class="ec-label">Standard · après 6 mois en stock</div>
-          <div class="ec-value ec-value-drop">50%</div>
-          <div class="ec-bar"><div class="ec-fill ec-fill-standard"></div></div>
-        </div>
+      <div class="floating-stat stat-simple" aria-label="Un cosmétique standard perd 50 pourcent de ses actifs après 6 mois de stockage.">
+        <div class="stat-num">−50 %</div>
+        <div class="stat-caption">d'actifs perdus après 6 mois de stockage</div>
       </div>
     </div>
 
