@@ -952,14 +952,100 @@
     backdrop-filter: blur(14px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.22);
   }
-  .floating-stat-val {
-    font-family: 'Instrument Serif', serif;
-    font-size: 56px;
-    line-height: 0.95;
-    letter-spacing: -0.025em;
+  /* ==========================================================
+     EFFICACY SPARK — Apple-style sparkline overlay card
+     Remplace "-50%" par une courbe minimale animée avec
+     100% top-left et -50% bottom-right
+     ========================================================== */
+  .efficacy-spark {
+    padding: 0 !important;
+    height: 170px;
+    overflow: hidden;
   }
-  .floating-stat-val .em { font-style: italic; color: #b93030; }
-  .floating-stat-label { font-size: 13px; color: var(--ink-soft); margin-top: 6px; max-width: 260px; }
+  .spark-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .spark-label {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+  }
+  .spark-label-start {
+    top: 18px;
+    left: 22px;
+    align-items: flex-start;
+  }
+  .spark-label-end {
+    bottom: 18px;
+    right: 22px;
+    align-items: flex-end;
+    text-align: right;
+  }
+  .spark-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 44px;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    line-height: 0.95;
+  }
+  .spark-num.em {
+    font-style: italic;
+    color: #b93030;
+  }
+  .spark-meta {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-top: 8px;
+  }
+
+  /* Animations (triggered via .in-view class via IntersectionObserver) */
+  .spark-curve {
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    transition: stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1) 0.4s;
+  }
+  .spark-area {
+    opacity: 0;
+    transition: opacity 0.7s ease 1.5s;
+  }
+  .spark-dot {
+    opacity: 0;
+    transform-origin: center;
+  }
+  .spark-dot-start { transition: opacity 0.4s ease 0.5s; }
+  .spark-dot-end { transition: opacity 0.4s ease 1.7s; }
+  .spark-label-start { transition: opacity 0.6s cubic-bezier(.2,.8,.2,1) 0.2s, transform 0.6s cubic-bezier(.2,.8,.2,1) 0.2s; transform: translateY(-6px); }
+  .spark-label-end { transition: opacity 0.6s cubic-bezier(.2,.8,.2,1) 1.9s, transform 0.6s cubic-bezier(.2,.8,.2,1) 1.9s; transform: translateY(6px); }
+
+  .efficacy-spark.in-view .spark-curve { stroke-dashoffset: 0; }
+  .efficacy-spark.in-view .spark-area { opacity: 1; }
+  .efficacy-spark.in-view .spark-dot { opacity: 1; }
+  .efficacy-spark.in-view .spark-label-start,
+  .efficacy-spark.in-view .spark-label-end {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spark-curve, .spark-area, .spark-dot,
+    .spark-label-start, .spark-label-end {
+      transition: none;
+      opacity: 1;
+      stroke-dashoffset: 0;
+      transform: none;
+    }
+  }
 
   .revolution h2 {
     font-family: 'Instrument Serif', serif;
@@ -1440,8 +1526,12 @@
     .revolution-outcome { padding: 20px; margin-top: 0; }
     .outcome-mark { font-size: 44px; }
     .outcome-text { font-size: 22px; }
-    .floating-stat-val { font-size: 44px; }
-    .revolution-visual .floating-stat { bottom: 20px; left: 20px; right: 20px; padding: 18px 22px; }
+    .revolution-visual .floating-stat { bottom: 20px; left: 20px; right: 20px; }
+    .efficacy-spark { height: 150px; }
+    .spark-num { font-size: 36px; }
+    .spark-meta { font-size: 9px; letter-spacing: 0.14em; margin-top: 6px; }
+    .spark-label-start { top: 14px; left: 18px; }
+    .spark-label-end { bottom: 14px; right: 18px; }
 
     /* Process */
     .process-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
@@ -1603,7 +1693,11 @@
     .marquee-track { font-size: 15px; gap: 28px; }
     .marquee-track span { gap: 28px; }
 
-    .floating-stat-val { font-size: 36px; }
+    .efficacy-spark { height: 130px; }
+    .spark-num { font-size: 30px; }
+    .spark-meta { font-size: 8px; margin-top: 5px; }
+    .spark-label-start { top: 12px; left: 14px; }
+    .spark-label-end { bottom: 12px; right: 14px; }
     .compare-stat { font-size: 38px; }
     .outcome-text { font-size: 18px; }
 
@@ -2815,9 +2909,31 @@
   <div class="section-inner">
     <div class="revolution-visual">
       <img src="revolution-visual.jpg" alt="Femme appliquant un soin Artisa, peau nette et lumineuse">
-      <div class="floating-stat">
-        <div class="floating-stat-val"><span class="em">− 50 %</span></div>
-        <div class="floating-stat-label">d'actifs perdus après 6 mois de stockage</div>
+      <div class="floating-stat efficacy-spark" aria-label="Graphique de perte d'efficacité des actifs sur 6 mois : 100% au jour zéro chez Artisa, −50% après 6 mois en stock.">
+        <svg class="spark-svg" viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true">
+          <defs>
+            <linearGradient id="spark-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path class="spark-area" d="M 50 30 C 180 30, 250 125, 450 128 L 450 148 L 50 148 Z" fill="url(#spark-grad)"/>
+          <path class="spark-curve" d="M 50 30 C 180 30, 250 125, 450 128" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+          <circle class="spark-dot spark-dot-start spark-dot-halo" cx="50" cy="30" r="18" fill="var(--accent)" opacity="0.14"/>
+          <circle class="spark-dot spark-dot-start" cx="50" cy="30" r="6.5" fill="var(--accent)"/>
+          <circle class="spark-dot spark-dot-start spark-dot-inner" cx="50" cy="30" r="2.5" fill="#fff"/>
+          <circle class="spark-dot spark-dot-end spark-dot-halo" cx="450" cy="128" r="18" fill="#b93030" opacity="0.14"/>
+          <circle class="spark-dot spark-dot-end" cx="450" cy="128" r="6.5" fill="#b93030"/>
+          <circle class="spark-dot spark-dot-end spark-dot-inner" cx="450" cy="128" r="2.5" fill="#fff"/>
+        </svg>
+        <div class="spark-label spark-label-start">
+          <span class="spark-num">100%</span>
+          <span class="spark-meta">Jour 0 · chez Artisa</span>
+        </div>
+        <div class="spark-label spark-label-end">
+          <span class="spark-num em">−50%</span>
+          <span class="spark-meta">Après 6 mois · en stock</span>
+        </div>
       </div>
     </div>
 
@@ -3407,6 +3523,31 @@
       document.addEventListener('DOMContentLoaded', init);
     } else {
       init();
+    }
+
+    // Efficacy spark : animation triggered when card enters viewport
+    function initSparkAnimation() {
+      const sparks = document.querySelectorAll('.efficacy-spark');
+      if (!sparks.length) return;
+      if (!('IntersectionObserver' in window)) {
+        // Fallback: show animations immediately
+        sparks.forEach(s => s.classList.add('in-view'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.35, rootMargin: '0px 0px -40px 0px' });
+      sparks.forEach(s => io.observe(s));
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSparkAnimation);
+    } else {
+      initSparkAnimation();
     }
   })();
 </script>
