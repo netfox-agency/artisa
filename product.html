@@ -70,6 +70,19 @@
     color: var(--muted);
     font-weight: 500;
     border-bottom: 1px solid var(--line-soft);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .announce-item { display: inline-flex; align-items: center; gap: 5px; }
+  .announce-item--bio { color: var(--ink); }
+  .announce-check { width: 11px; height: 11px; color: #6b9a4a; flex-shrink: 0; }
+  .announce-sep { opacity: 0.5; }
+  @media (max-width: 600px) {
+    .announce { font-size: 10px; gap: 6px; padding: 9px 14px; }
+    .announce-check { width: 10px; height: 10px; }
   }
 
   /* ---------- NAV ---------- */
@@ -760,7 +773,16 @@
 </head>
 <body>
 
-<div class="announce">Livraison offerte en France</div>
+<div class="announce">
+  <span class="announce-item">Livraison offerte en France</span>
+  <span class="announce-sep" aria-hidden="true">·</span>
+  <span class="announce-item announce-item--bio">
+    <svg class="announce-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+    Certifié BIO Ecocert
+  </span>
+  <span class="announce-sep" aria-hidden="true">·</span>
+  <span class="announce-item">Fabriqué après votre commande</span>
+</div>
 
 <nav>
   <div class="nav-inner">
