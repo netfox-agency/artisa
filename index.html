@@ -953,85 +953,57 @@
     box-shadow: 0 20px 40px rgba(0,0,0,0.22);
   }
   /* ==========================================================
-     EFFICACY COMPARE V5 — Apple-style comparison bars.
-     Deux lignes, une par produit. Fill animé. Zéro overlap.
-     Lisible instantanément sans contexte.
+     EFFICACY COMPARE V6 — Minimal editorial. Juste les chiffres.
+     Label en caps, chiffre énorme en Instrument Serif, barre fine.
+     Séparateur entre les deux blocs. Zéro déco, zéro overlap.
      ========================================================== */
   .efficacy-spark {
-    padding: 22px 24px 20px !important;
+    padding: 24px 26px !important;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
   }
-  .ec-title {
-    font-family: 'Instrument Serif', serif;
-    font-size: 19px;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    margin: 0 0 2px;
-  }
-  .ec-rows {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .ec-row { display: flex; flex-direction: column; gap: 7px; }
-  .ec-row-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 12px;
+  .ec-row { display: flex; flex-direction: column; gap: 8px; }
+  .ec-divider {
+    height: 1px;
+    background: var(--line-soft);
+    margin: 0;
   }
   .ec-label {
-    font-size: 12px;
-    letter-spacing: 0.08em;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .ec-sub {
-    font-size: 10px;
-    letter-spacing: 0.06em;
     color: var(--muted);
-    font-weight: 400;
-    text-transform: none;
-    margin-left: 4px;
+    font-weight: 500;
   }
   .ec-value {
     font-family: 'Instrument Serif', serif;
-    font-size: 22px;
-    line-height: 1;
+    font-size: 40px;
+    line-height: 0.95;
     color: var(--ink);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.025em;
+    font-weight: 400;
   }
   .ec-value-drop { color: #b93030; font-style: italic; }
   .ec-bar {
     position: relative;
-    height: 6px;
+    height: 4px;
     background: var(--line-soft);
-    border-radius: 3px;
+    border-radius: 2px;
     overflow: hidden;
+    margin-top: 4px;
   }
   .ec-fill {
     position: absolute;
     inset: 0 auto 0 0;
     width: 0;
-    border-radius: 3px;
+    border-radius: 2px;
     transition: width 1.2s cubic-bezier(.2,.8,.2,1);
   }
   .ec-fill-artisa { background: var(--accent); transition-delay: 0.2s; }
   .ec-fill-standard {
     background: linear-gradient(90deg, var(--accent) 0%, #b93030 100%);
     transition-delay: 0.9s;
-  }
-  .ec-foot {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 4px;
-    font-weight: 500;
   }
   .efficacy-spark.in-view .ec-fill-artisa { width: var(--target-artisa, 100%); }
   .efficacy-spark.in-view .ec-fill-standard { width: var(--target-standard, 50%); }
@@ -1522,14 +1494,9 @@
     .outcome-mark { font-size: 44px; }
     .outcome-text { font-size: 22px; }
     .revolution-visual .floating-stat { bottom: 20px; left: 20px; right: 20px; }
-    .efficacy-spark { padding: 18px 20px 16px !important; gap: 14px; }
-    .ec-title { font-size: 17px; }
-    .ec-rows { gap: 12px; }
-    .ec-label { font-size: 11px; letter-spacing: 0.06em; }
-    .ec-sub { font-size: 9px; }
-    .ec-value { font-size: 19px; }
-    .ec-bar { height: 5px; }
-    .ec-foot { font-size: 9px; }
+    .efficacy-spark { padding: 20px 22px !important; gap: 16px; }
+    .ec-label { font-size: 9.5px; letter-spacing: 0.12em; }
+    .ec-value { font-size: 34px; }
 
     /* Process */
     .process-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
@@ -1691,14 +1658,10 @@
     .marquee-track { font-size: 15px; gap: 28px; }
     .marquee-track span { gap: 28px; }
 
-    .efficacy-spark { padding: 16px 18px 14px !important; gap: 12px; }
-    .ec-title { font-size: 15px; }
-    .ec-rows { gap: 10px; }
-    .ec-label { font-size: 10px; letter-spacing: 0.05em; }
-    .ec-sub { font-size: 8.5px; }
-    .ec-value { font-size: 17px; }
-    .ec-bar { height: 5px; }
-    .ec-foot { font-size: 8.5px; letter-spacing: 0.08em; }
+    .efficacy-spark { padding: 18px 20px !important; gap: 14px; }
+    .ec-label { font-size: 9px; letter-spacing: 0.1em; }
+    .ec-value { font-size: 30px; }
+    .ec-bar { height: 4px; }
     .compare-stat { font-size: 38px; }
     .outcome-text { font-size: 18px; }
 
@@ -2910,25 +2873,18 @@
   <div class="section-inner">
     <div class="revolution-visual">
       <img src="revolution-visual.jpg" alt="Femme appliquant un soin Artisa, peau nette et lumineuse">
-      <div class="floating-stat efficacy-spark" style="--target-artisa: 100%; --target-standard: 50%;" aria-label="Artisa conserve 100% d'efficacité. Un cosmétique standard en perd la moitié après 6 mois en stock.">
-        <div class="ec-title">L'efficacité, mesurée.</div>
-        <div class="ec-rows">
-          <div class="ec-row">
-            <div class="ec-row-head">
-              <span class="ec-label">Artisa <span class="ec-sub">· jour de fabrication</span></span>
-              <span class="ec-value">100%</span>
-            </div>
-            <div class="ec-bar"><div class="ec-fill ec-fill-artisa"></div></div>
-          </div>
-          <div class="ec-row">
-            <div class="ec-row-head">
-              <span class="ec-label">Standard <span class="ec-sub">· après 6 mois en stock</span></span>
-              <span class="ec-value ec-value-drop">50%</span>
-            </div>
-            <div class="ec-bar"><div class="ec-fill ec-fill-standard"></div></div>
-          </div>
+      <div class="floating-stat efficacy-spark" style="--target-artisa: 100%; --target-standard: 50%;" aria-label="Artisa conserve 100% d'efficacité le jour de fabrication. Un cosmétique standard en perd la moitié après 6 mois en stock.">
+        <div class="ec-row">
+          <div class="ec-label">Artisa · jour de fabrication</div>
+          <div class="ec-value">100%</div>
+          <div class="ec-bar"><div class="ec-fill ec-fill-artisa"></div></div>
         </div>
-        <div class="ec-foot">Actifs conservés, mesure moyenne.</div>
+        <div class="ec-divider"></div>
+        <div class="ec-row">
+          <div class="ec-label">Standard · après 6 mois en stock</div>
+          <div class="ec-value ec-value-drop">50%</div>
+          <div class="ec-bar"><div class="ec-fill ec-fill-standard"></div></div>
+        </div>
       </div>
     </div>
 
