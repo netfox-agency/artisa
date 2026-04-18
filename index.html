@@ -1087,7 +1087,15 @@
     color: var(--accent-soft);
     font-style: italic;
   }
-  .outcome-text { font-family: 'Instrument Serif', serif; font-size: 26px; line-height: 1.15; letter-spacing: -0.01em; }
+  .outcome-text { font-family: 'Instrument Serif', serif; font-size: 26px; line-height: 1.15; letter-spacing: -0.01em; flex: 1; }
+  .outcome-text em { font-style: italic; color: var(--accent-soft); letter-spacing: 0.02em; }
+  .outcome-cert {
+    width: 72px; height: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.78;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
 
   /* ---------- POMPE ---------- */
   .pompe { background: var(--bg-soft); }
@@ -1653,8 +1661,9 @@
     .hero-card { aspect-ratio: 4/5; }
 
     /* Revolution outcome */
-    .revolution-outcome { flex-direction: column; align-items: flex-start; gap: 10px; padding: 20px; }
+    .revolution-outcome { flex-direction: column; align-items: flex-start; gap: 14px; padding: 20px; }
     .outcome-text { font-size: 20px; }
+    .outcome-cert { width: 64px; margin-left: 0; }
 
     /* Floating pills scale down */
     .rating-float { font-size: 11px; padding: 6px 12px 6px 10px; gap: 8px; top: 12px; left: 12px; }
@@ -2774,7 +2783,7 @@
 <section id="products">
   <div class="section-inner">
     <span class="eyebrow">Nature · Pureté · Puissance</span>
-    <h2 class="section-title">Nos cosmétiques frais et <em>bio</em>, fabriqués à la commande.</h2>
+    <h2 class="section-title">Nos cosmétiques <em>frais</em> et <em>BIO</em>, fabriqués à la commande.</h2>
 
     <div class="products-grid">
 
@@ -2943,7 +2952,8 @@
 
       <div class="revolution-outcome">
         <div class="outcome-mark">"</div>
-        <div class="outcome-text">Un soin bio.<br>Certifié Ecocert.</div>
+        <div class="outcome-text">Un soin <em>BIO</em>.<br>Certifié Ecocert.</div>
+        <img src="ecocert-logo.svg" alt="Certification Ecocert" class="outcome-cert" width="72" height="47">
       </div>
     </div>
   </div>
