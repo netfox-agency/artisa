@@ -953,120 +953,93 @@
     box-shadow: 0 20px 40px rgba(0,0,0,0.22);
   }
   /* ==========================================================
-     EFFICACY SPARK V4 — Apple-style : claim au-dessus, chart minimal
-     dessous. Séparation claire des zones, aucun overlap label/dot,
-     responsive à toutes tailles.
+     EFFICACY COMPARE V5 — Apple-style comparison bars.
+     Deux lignes, une par produit. Fill animé. Zéro overlap.
+     Lisible instantanément sans contexte.
      ========================================================== */
   .efficacy-spark {
-    padding: 18px 22px 16px !important;
+    padding: 22px 24px 20px !important;
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 16px;
   }
-  .spark-title {
+  .ec-title {
     font-family: 'Instrument Serif', serif;
-    font-size: 22px;
-    line-height: 1.15;
-    letter-spacing: -0.015em;
+    font-size: 19px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
     color: var(--ink);
-    margin: 0;
+    margin: 0 0 2px;
   }
-  .spark-title .em {
-    font-style: italic;
-    color: #b93030;
-    font-weight: 400;
+  .ec-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
-  .spark-y-hint {
-    font-size: 9px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 14px 0 8px;
-    font-weight: 500;
-  }
-  .spark-chart {
-    position: relative;
-    width: 100%;
-    height: 60px;
-  }
-  .spark-path-svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    overflow: visible;
-  }
-  .spark-dot {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-  }
-  .spark-dot::before {
-    content: '';
-    position: absolute;
-    inset: -7px;
-    border-radius: 50%;
-    background: inherit;
-    opacity: 0.18;
-    z-index: -1;
-  }
-  .spark-dot-start {
-    top: 8%;
-    left: 2%;
-    background: var(--accent);
-  }
-  .spark-dot-end {
-    top: 92%;
-    left: 98%;
-    background: #b93030;
-  }
-  .spark-x-axis {
+  .ec-row { display: flex; flex-direction: column; gap: 7px; }
+  .ec-row-head {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
-    font-size: 9px;
-    letter-spacing: 0.14em;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .ec-label {
+    font-size: 12px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--ink);
     font-weight: 500;
   }
-
-  /* Animations triggered by .in-view class (IntersectionObserver) */
-  .spark-curve {
-    stroke-dasharray: 520;
-    stroke-dashoffset: 520;
-    transition: stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1) 0.3s;
+  .ec-sub {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 400;
+    text-transform: none;
+    margin-left: 4px;
   }
-  .spark-area {
-    opacity: 0;
-    transition: opacity 0.7s ease 1.4s;
+  .ec-value {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
   }
-  .spark-dot {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.3);
-    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(.34,1.56,.64,1);
+  .ec-value-drop { color: #b93030; font-style: italic; }
+  .ec-bar {
+    position: relative;
+    height: 6px;
+    background: var(--line-soft);
+    border-radius: 3px;
+    overflow: hidden;
   }
-  .spark-dot-start { transition-delay: 0.4s, 0.4s; }
-  .spark-dot-end { transition-delay: 1.6s, 1.6s; }
-
-  .efficacy-spark.in-view .spark-curve { stroke-dashoffset: 0; }
-  .efficacy-spark.in-view .spark-area { opacity: 1; }
-  .efficacy-spark.in-view .spark-dot {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+  .ec-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0;
+    border-radius: 3px;
+    transition: width 1.2s cubic-bezier(.2,.8,.2,1);
   }
+  .ec-fill-artisa { background: var(--accent); transition-delay: 0.2s; }
+  .ec-fill-standard {
+    background: linear-gradient(90deg, var(--accent) 0%, #b93030 100%);
+    transition-delay: 0.9s;
+  }
+  .ec-foot {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  .efficacy-spark.in-view .ec-fill-artisa { width: var(--target-artisa, 100%); }
+  .efficacy-spark.in-view .ec-fill-standard { width: var(--target-standard, 50%); }
 
   @media (prefers-reduced-motion: reduce) {
-    .spark-curve, .spark-area, .spark-dot {
-      transition: none;
-      opacity: 1;
-      stroke-dashoffset: 0;
-      transform: translate(-50%, -50%) scale(1);
-    }
+    .ec-fill { transition: none; }
+    .ec-fill-artisa { width: var(--target-artisa, 100%); }
+    .ec-fill-standard { width: var(--target-standard, 50%); }
   }
 
   .revolution h2 {
@@ -1549,11 +1522,14 @@
     .outcome-mark { font-size: 44px; }
     .outcome-text { font-size: 22px; }
     .revolution-visual .floating-stat { bottom: 20px; left: 20px; right: 20px; }
-    .efficacy-spark { padding: 16px 20px 14px !important; }
-    .spark-title { font-size: 19px; }
-    .spark-y-hint { font-size: 8px; letter-spacing: 0.2em; margin: 12px 0 6px; }
-    .spark-chart { height: 52px; }
-    .spark-x-axis { font-size: 8px; letter-spacing: 0.12em; margin-top: 8px; }
+    .efficacy-spark { padding: 18px 20px 16px !important; gap: 14px; }
+    .ec-title { font-size: 17px; }
+    .ec-rows { gap: 12px; }
+    .ec-label { font-size: 11px; letter-spacing: 0.06em; }
+    .ec-sub { font-size: 9px; }
+    .ec-value { font-size: 19px; }
+    .ec-bar { height: 5px; }
+    .ec-foot { font-size: 9px; }
 
     /* Process */
     .process-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
@@ -1715,12 +1691,14 @@
     .marquee-track { font-size: 15px; gap: 28px; }
     .marquee-track span { gap: 28px; }
 
-    .efficacy-spark { padding: 14px 16px 12px !important; }
-    .spark-title { font-size: 17px; line-height: 1.18; }
-    .spark-y-hint { font-size: 8px; letter-spacing: 0.18em; margin: 10px 0 5px; }
-    .spark-chart { height: 46px; }
-    .spark-x-axis { font-size: 7.5px; letter-spacing: 0.1em; margin-top: 7px; }
-    .spark-dot { width: 8px; height: 8px; }
+    .efficacy-spark { padding: 16px 18px 14px !important; gap: 12px; }
+    .ec-title { font-size: 15px; }
+    .ec-rows { gap: 10px; }
+    .ec-label { font-size: 10px; letter-spacing: 0.05em; }
+    .ec-sub { font-size: 8.5px; }
+    .ec-value { font-size: 17px; }
+    .ec-bar { height: 5px; }
+    .ec-foot { font-size: 8.5px; letter-spacing: 0.08em; }
     .compare-stat { font-size: 38px; }
     .outcome-text { font-size: 18px; }
 
@@ -2932,29 +2910,25 @@
   <div class="section-inner">
     <div class="revolution-visual">
       <img src="revolution-visual.jpg" alt="Femme appliquant un soin Artisa, peau nette et lumineuse">
-      <div class="floating-stat efficacy-spark" aria-label="Un cosmétique perd environ 50% de ses actifs en 6 mois de stockage.">
-        <div class="spark-title">
-          <span class="em">−50%</span> d'actifs<br>en 6 mois de stockage.
+      <div class="floating-stat efficacy-spark" style="--target-artisa: 100%; --target-standard: 50%;" aria-label="Artisa conserve 100% d'efficacité. Un cosmétique standard en perd la moitié après 6 mois en stock.">
+        <div class="ec-title">L'efficacité, mesurée.</div>
+        <div class="ec-rows">
+          <div class="ec-row">
+            <div class="ec-row-head">
+              <span class="ec-label">Artisa <span class="ec-sub">· jour de fabrication</span></span>
+              <span class="ec-value">100%</span>
+            </div>
+            <div class="ec-bar"><div class="ec-fill ec-fill-artisa"></div></div>
+          </div>
+          <div class="ec-row">
+            <div class="ec-row-head">
+              <span class="ec-label">Standard <span class="ec-sub">· après 6 mois en stock</span></span>
+              <span class="ec-value ec-value-drop">50%</span>
+            </div>
+            <div class="ec-bar"><div class="ec-fill ec-fill-standard"></div></div>
+          </div>
         </div>
-        <div class="spark-y-hint">Efficacité</div>
-        <div class="spark-chart">
-          <svg class="spark-path-svg" viewBox="0 0 500 100" preserveAspectRatio="none" role="img" aria-hidden="true">
-            <defs>
-              <linearGradient id="spark-grad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.22"/>
-                <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            <path class="spark-area" d="M 8 8 C 140 8, 220 92, 492 92 L 492 100 L 8 100 Z" fill="url(#spark-grad)"/>
-            <path class="spark-curve" d="M 8 8 C 140 8, 220 92, 492 92" stroke="var(--accent)" stroke-width="2.5" fill="none" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
-          </svg>
-          <span class="spark-dot spark-dot-start" aria-hidden="true"></span>
-          <span class="spark-dot spark-dot-end" aria-hidden="true"></span>
-        </div>
-        <div class="spark-x-axis">
-          <span>Jour 0 · Artisa</span>
-          <span>6 mois · stock</span>
-        </div>
+        <div class="ec-foot">Actifs conservés, mesure moyenne.</div>
       </div>
     </div>
 
