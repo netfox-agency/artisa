@@ -1355,7 +1355,7 @@
 
     // Sticky buy bar setup
     const thumbEl = document.getElementById('sticky-buy-thumb');
-    const stickyImg = images[0]?.url || p.featuredImage?.url || '';
+    const stickyImg = p.featuredImage?.url || p.images.edges[0]?.node?.url || '';
     if (stickyImg) {
       thumbEl.innerHTML = `<img src="${stickyImg}" alt="">`;
     }
